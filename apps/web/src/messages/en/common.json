@@ -1,0 +1,35 @@
+{
+  "brand": "Spark Coders",
+  "skipToContent": "Skip to content",
+  "startProject": "Start your project",
+  "menu": "Menu",
+  "close": "Close",
+  "backToTop": "Back to top",
+  "rights": "© {year} Spark Coders. All rights reserved.",
+  "followUs": "Follow us",
+  "socials": {
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "x": "X (Twitter)",
+    "behance": "Behance"
+  },
+  "loading": "Loading…",
+  "error": {
+    "title": "Something went wrong",
+    "body": "Sorry, we couldn't show this part. Please try again.",
+    "section": "This section couldn't be displayed."
+  },
+  "tryAgain": "Try again",
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page may have moved, or the link is incorrect.",
+    "home": "Back to home"
+  },
+  "prev": "Previous",
+  "next": "Next",
+  "whatsapp": {
+    "label": "Message us on WhatsApp",
+    "message": "Hi Spark Coders, I have a project idea and would like to know more."
+  },
+  "privacy": "Privacy policy"
+}

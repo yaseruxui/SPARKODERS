@@ -1,0 +1,18 @@
+{
+  "mainAria": "القائمة الرئيسية",
+  "homeAria": "SPARKODERS — الصفحة الرئيسية",
+  "items": {
+    "home": "الرئيسية",
+    "services": "خدماتنا",
+    "work": "أعمالنا",
+    "about": "من نحن",
+    "blog": "المدونة",
+    "contact": "تواصل معنا"
+  },
+  "menuNote": "نصمّم ونبرمج مواقع وتطبيقات تساعد مشروعك على النمو.",
+  "quickLinks": "روابط سريعة",
+  "socialAria": "حساباتنا",
+  "switchLocaleAria": "عرض الموقع بالإنجليزية",
+  "switchLocaleShort": "EN",
+  "menuCtaTitle": "عندك فكرة مشروع؟"
+}

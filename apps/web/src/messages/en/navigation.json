@@ -1,0 +1,18 @@
+{
+  "mainAria": "Main menu",
+  "homeAria": "SPARKODERS — home",
+  "items": {
+    "home": "Home",
+    "services": "Services",
+    "work": "Our work",
+    "about": "About us",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "menuNote": "We design and build websites and apps that help your business grow.",
+  "quickLinks": "Quick links",
+  "socialAria": "Our accounts",
+  "switchLocaleAria": "View the site in Arabic",
+  "switchLocaleShort": "ع",
+  "menuCtaTitle": "Got a project in mind?"
+}

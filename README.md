@@ -1,0 +1,73 @@
+# SPARKODERS
+
+Monorepo for the SPARKODERS (سبارك كودرز) website, its admin dashboard and the API between them.
+
+| Path                  | What                                                       | Stack                                     |
+| --------------------- | ---------------------------------------------------------- | ----------------------------------------- |
+| `apps/web`            | Public site, Arabic (RTL) + English                        | Next.js 16, Tailwind 4, next-intl, GSAP   |
+| `apps/admin`          | Dashboard: inbox, users and (next phases) all site content | React 19, Vite, shadcn/ui, TanStack Query |
+| `apps/api`            | REST API: auth, users and permissions, contact inbox       | NestJS 12, Prisma 7 (SQLite → Postgres)   |
+| `packages/contracts`  | Data shapes shared by all three (Zod schemas + types)      | Zod 4                                     |
+
+The admin dashboard follows the Sekka dashboard (`yaseruxui/sekka-dashboard`): same layout,
+components and flows, rebuilt on NestJS + React instead of Laravel + Inertia.
+
+## Getting started
+
+```bash
+npm install                      # all workspaces; builds packages/contracts
+cp apps/api/.env.example apps/api/.env
+cp apps/admin/.env.example apps/admin/.env
+cp apps/web/.env.example apps/web/.env.local
+
+npm run db:migrate -w @sparkoders/api            # creates apps/api/prisma/dev.db
+npm run build -w @sparkoders/api
+npm run admin:create -w @sparkoders/api -- you@example.com "Your Name"   # asks for a password
+
+npm run dev:api      # http://localhost:4000
+npm run dev:admin    # http://localhost:5173
+npm run dev:web      # http://localhost:3000
+```
+
+To send the site's contact form to the dashboard, set in `apps/web/.env.local`:
+
+```
+CONTACT_WEBHOOK_URL=http://localhost:4000/public/contact
+CONTACT_WEBHOOK_KEY=<the same value as CONTACT_WEBHOOK_KEY in apps/api/.env>
+```
+
+Without them the site still works and the form asks visitors to email instead. In production
+the URL must be https (the site refuses to start otherwise).
+
+## How the pieces talk
+
+- **Site → API**: the contact form's server action POSTs a `ContactSubmission` to
+  `{API}/public/contact` with the `x-contact-key` header. It lands in the dashboard inbox.
+- **Dashboard → API**: the browser calls the API with an httpOnly session cookie and the
+  `x-sparkoders-admin: 1` header (required on every change; it also blocks cross-site forgery).
+  CORS allows only `ADMIN_URL`. Admin and API on different sites need `COOKIE_SAMESITE=none`.
+- **Contracts**: every request and response shape is a Zod schema in `packages/contracts`, so a
+  change to a field breaks the build of whichever app is out of step.
+
+## Roadmap
+
+1. ✅ Monorepo; API with auth, users, invitations and permissions; inbox wired to the site form;
+   dashboard with login, overview, inbox, users and settings.
+2. Site content in the dashboard: services, team, testimonials, page texts, contact info and
+   socials. The site reads them from the API and falls back to its bundled copy.
+3. Projects (block editor, drafts, publish) and blog articles.
+4. Media library, notifications (email on new enquiry), mail settings.
+
+## Database
+
+Development uses SQLite (`apps/api/prisma/dev.db`, not committed). To use Postgres: set
+`provider = "postgresql"` in `apps/api/prisma/schema.prisma`, point `DATABASE_URL` at the server,
+swap `@prisma/adapter-libsql` for `@prisma/adapter-pg` in `apps/api/src/prisma/prisma.service.ts`,
+then run `npx prisma migrate dev` to create a fresh Postgres migration.
+
+## Checks
+
+```bash
+npm run typecheck
+npm run build
+```

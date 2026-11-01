@@ -1,0 +1,263 @@
+{
+  "loader": {
+    "label": "SPARKODERS"
+  },
+  "hero": {
+    "intro": "At <b>Spark Coders</b> we design and build fast, easy-to-use websites and apps that help your business reach more customers and grow with confidence.",
+    "line1": "Websites & apps",
+    "line2": "that grow your business in",
+    "words": {
+      "ecommerce": "E-commerce.",
+      "education": "Education.",
+      "clinics": "Clinics.",
+      "startups": "Startups.",
+      "restaurants": "Restaurants."
+    },
+    "ctaPrimary": "Book a free consultation",
+    "ctaSecondary": "See our work",
+    "stackLabel": "The tools we build with",
+    "stackAria": "Technologies we use",
+    "stage": {
+      "storeHeadline": "Quiet elegance, every day",
+      "website": {
+        "title": "Website",
+        "detail": "Ready to launch"
+      },
+      "app": {
+        "title": "Mobile app",
+        "detail": "iOS & Android"
+      }
+    }
+  },
+  "intro": {
+    "aria": "Why Spark Coders",
+    "p1": "If your website is slow, outdated or hard to use, you're losing [[customers]] every day without noticing.",
+    "p2": "The fix? [[Right here.]]",
+    "p3": "We turn your idea into a fast, polished website or app that brings in [[real customers.]]",
+    "p4": "Ready to start [[your project?]]",
+    "scrollHint": "Scroll down",
+    "cta": "Start your project"
+  },
+  "work": {
+    "title": "Our work.",
+    "lead": "A selection of projects we've designed and built for clients across industries.",
+    "details": "Project details",
+    "all": "All work",
+    "items": {
+      "education": {
+        "title": "All-in-one learning platform",
+        "category": "Education",
+        "alt": "Students using a learning platform"
+      },
+      "ecommerce": {
+        "title": "Online store for a fashion label",
+        "category": "E-commerce",
+        "alt": "Online store for a fashion label"
+      },
+      "clinic": {
+        "title": "Clinic booking system",
+        "category": "Healthcare",
+        "alt": "Clinic appointment booking system"
+      },
+      "delivery": {
+        "title": "Delivery app",
+        "category": "Mobile apps",
+        "alt": "Delivery app on a phone"
+      },
+      "dashboard": {
+        "title": "Logistics dashboard",
+        "category": "Business systems",
+        "alt": "Dashboard with reports and charts"
+      },
+      "restaurant": {
+        "title": "Restaurant website & menu",
+        "category": "Restaurants",
+        "alt": "Digital restaurant menu"
+      }
+    }
+  },
+  "leads": {
+    "title": "More visitors.",
+    "titleAccent": "More customers.",
+    "body": "A great website isn't just a pretty face — it's a salesperson that works 24/7. We shape every page and every button so visitors become customers who contact you and buy.",
+    "tap": "Tap here",
+    "canvasAria": "Interactive area: tap to add new leads",
+    "tags": {
+      "client": "New client",
+      "quote": "Quote request",
+      "booking": "Booking",
+      "whatsapp": "WhatsApp message",
+      "call": "Phone call",
+      "order": "New order",
+      "signup": "New signup",
+      "inquiry": "Inquiry"
+    }
+  },
+  "delight": {
+    "title": "From idea",
+    "titleAccent": "to launch.",
+    "body": "Five clear steps we take with you, so at every stage you know what's done and what's next.",
+    "steps": {
+      "discover": {
+        "title": "We understand your needs",
+        "body": "A session to hear your idea, your goals and who your audience is."
+      },
+      "plan": {
+        "title": "We plan the pages",
+        "body": "A sitemap and the content of every page before any design."
+      },
+      "design": {
+        "title": "We design",
+        "body": "Screens you can see and change before we start building."
+      },
+      "build": {
+        "title": "We build and test",
+        "body": "We build the site and test it on phones, computers and every browser."
+      },
+      "launch": {
+        "title": "We launch your site",
+        "body": "We publish it on your domain and stay with you for support."
+      }
+    }
+  },
+  "team": {
+    "title": "Our team",
+    "body": "A specialist team that brings you clear solutions instead of problems, saves your time and works with you step by step until your project is ready.",
+    "members": {
+      "cto": {
+        "name": "Ahmed Kamal",
+        "role": "Chief Technology Officer",
+        "bio": "Leads the technical team and sets the architecture of every project, keeping it fast, secure and ready to scale."
+      },
+      "fullstack": {
+        "name": "Abanoub Messiha",
+        "role": "Full-stack Developer",
+        "bio": "Builds interfaces and back-end systems end to end, turning designs into sites and apps that run smoothly."
+      },
+      "uxui": {
+        "name": "Yaser Ahmed",
+        "role": "UX/UI Designer & Business Analyst",
+        "bio": "Analyses what your business needs and turns it into a clear user journey and simple, tidy interfaces."
+      },
+      "pm": {
+        "name": "Omar Al-Husseini",
+        "role": "Project manager",
+        "bio": "Keeps you updated through every stage and makes sure deadlines are met."
+      },
+      "marketer": {
+        "name": "Hala Mansour",
+        "role": "Digital marketer",
+        "bio": "Helps you reach the right audience and measures your campaigns in numbers."
+      }
+    }
+  },
+  "services": {
+    "title": "Our services",
+    "lead": "Everything your project needs online, from the idea to launch and beyond.",
+    "aria": "Our services",
+    "cta": "Request this",
+    "items": {
+      "website": {
+        "title": "Website design & development",
+        "body": "Fast, elegant sites that present your business and earn trust on the first visit.",
+        "alt": "Laptop showing a modern website design"
+      },
+      "store": {
+        "title": "E-commerce stores",
+        "body": "A store ready to sell, with easy online payment and shipping and inventory integration.",
+        "alt": "Phone showing a product page in an online store"
+      },
+      "app": {
+        "title": "Mobile apps",
+        "body": "iOS and Android apps with a smooth experience, from design to store release.",
+        "alt": "Two phones showing app screens"
+      },
+      "systems": {
+        "title": "Systems & dashboards",
+        "body": "Management, booking and reporting systems built around how you work.",
+        "alt": "Monitor showing a dashboard with reports and charts"
+      },
+      "branding": {
+        "title": "Branding & UX",
+        "body": "A visual identity and clear interfaces that make your product easy and distinctive.",
+        "alt": "Cards, colour swatches and logo sketches for a brand identity"
+      },
+      "seo": {
+        "title": "Search visibility (SEO)",
+        "body": "Speed and content improvements so your customers find you on Google.",
+        "alt": "Laptop showing search results and a rising chart"
+      }
+    },
+    "all": "All services"
+  },
+  "testimonials": {
+    "title": "What our clients say",
+    "items": {
+      "one": {
+        "quote": "“A professional team from start to finish. They delivered on time, and the quality beat our expectations.”",
+        "name": "Khalid Al-Otaibi",
+        "role": "CEO, Madar"
+      },
+      "two": {
+        "quote": "“After launching the new site, our enquiries clearly went up. Even better, the support continues after handover.”",
+        "name": "Noura Al-Qahtani",
+        "role": "Marketing Manager, Lamsa"
+      },
+      "three": {
+        "quote": "“We were looking for a partner we could trust, and we found one. Responsive, collaborative and detail-obsessed.”",
+        "name": "Faisal Al-Harbi",
+        "role": "Founder, Taallam"
+      },
+      "four": {
+        "quote": "“From the first meeting they understood our idea better than we did. The new site is faster, clearer, and customers reach us through it every day.”",
+        "name": "Lama Al-Shehri",
+        "role": "Operations Manager, Shifa Clinics"
+      },
+      "five": {
+        "quote": "“The booking system they built saves us hours of manual work every week.”",
+        "name": "Abdullah Al-Dosari",
+        "role": "CEO, Shuhnat"
+      },
+      "six": {
+        "quote": "“The design came out better than we imagined, and the app is far easier for our customers.”",
+        "name": "Sara Al-Mutairi",
+        "role": "Product Manager, Tawseel"
+      },
+      "seven": {
+        "quote": "“Full transparency at every stage — we always knew exactly where the project stood.”",
+        "name": "Majed Al-Zahrani",
+        "role": "General Manager, Beit Al Jadda"
+      },
+      "eight": {
+        "quote": "“Our new store is fast and simple, and mobile sales doubled after launch.”",
+        "name": "Reem Al-Subaie",
+        "role": "Founder, Al Noor Academy"
+      }
+    },
+    "lead": "Real words from the business owners we have worked with.",
+    "photoAlt": "Photo of {name}",
+    "choose": "Choose a testimonial"
+  },
+  "blog": {
+    "title": "Blog",
+    "all": "All articles",
+    "category": "Tips",
+    "items": {
+      "content": {
+        "title": "Should your website content be ready before design starts?",
+        "alt": "Person writing website copy on a laptop"
+      },
+      "team": {
+        "title": "Who should be on your website project team?",
+        "alt": "Team meeting around a table"
+      },
+      "brief": {
+        "title": "How to write a clear project brief before contacting an agency",
+        "alt": "Project plan sketched on paper"
+      }
+    }
+  },
+  "outro": {
+    "note": "Spark Coders is a software and digital design team. We build fast, clear websites, stores, apps and systems, and stay with you from the first idea to launch and beyond."
+  }
+}

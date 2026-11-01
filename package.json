@@ -1,0 +1,21 @@
+{
+  "name": "sparkoders",
+  "private": true,
+  "description": "SPARKODERS monorepo: public site, admin dashboard and API.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev:web": "npm run dev -w @sparkoders/web",
+    "dev:admin": "npm run dev -w @sparkoders/admin",
+    "dev:api": "npm run dev -w @sparkoders/api",
+    "build": "npm run build -w @sparkoders/contracts && npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  }
+}

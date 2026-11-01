@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+.env*.local
+
+# Licensed brand font (Thmanyah Sans). Its license forbids publishing the files, and this repo is
+# public, so they are installed per machine/deploy and never committed. See README → Brand font.
+public/fonts/thmanyah/

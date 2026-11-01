@@ -1,0 +1,175 @@
+{
+  "work": {
+    "title": "Our work",
+    "lead": "Projects we designed and built for clients across sectors, from learning platforms to stores and apps.",
+    "metaTitle": "Our work",
+    "metaDescription": "Selected Spark Coders projects: learning platforms, online stores, booking systems, delivery apps and dashboards.",
+    "all": "All",
+    "back": "All work",
+    "client": "Client",
+    "sector": "Sector",
+    "year": "Year",
+    "duration": "Duration",
+    "services": "Services",
+    "challenge": "The challenge",
+    "solution": "The solution",
+    "features": "Key features",
+    "results": "Results",
+    "next": "Next project",
+    "ctaTitle": "Have a similar project?",
+    "ctaBody": "Tell us about your idea and we'll come back with a clear plan and a quote within two working days.",
+    "cta": "Start your project"
+  },
+  "blog": {
+    "title": "Blog",
+    "lead": "Practical advice to help you plan your website or app and avoid the common mistakes.",
+    "metaTitle": "Blog",
+    "metaDescription": "Articles and advice from the Spark Coders team on planning, designing and building websites and apps.",
+    "back": "All articles",
+    "readTime": "{time} read",
+    "related": "More articles",
+    "read": "Read article",
+    "ctaTitle": "Got a project in mind?"
+  },
+  "services": {
+    "title": "Our services",
+    "lead": "From the first idea until your project is live and growing: design, development and support, all with one team.",
+    "metaTitle": "Services",
+    "metaDescription": "Website design and development, online stores, mobile apps, systems and dashboards, branding and UX, and search visibility.",
+    "forWho": "Best for",
+    "deliverables": "What you get",
+    "cta": "Request this",
+    "items": {
+      "website": {
+        "intro": "A site that presents your business and persuades visitors to get in touch, designed for you and built to be fast and easy to update.",
+        "forWho": "Companies, clinics, offices and projects that need a professional presence online.",
+        "deliverables": [
+          "Custom UI in your identity",
+          "Responsive on phones and computers",
+          "A dashboard to edit content",
+          "Contact forms and WhatsApp",
+          "Search-engine basics"
+        ]
+      },
+      "store": {
+        "intro": "A store ready to sell from day one: easy checkout, secure payments, and shipping and inventory connected.",
+        "forWho": "Brands and shops selling through Instagram or moving their sales online.",
+        "deliverables": [
+          "A store in your brand",
+          "Online payment (mada, Apple Pay, cards)",
+          "Courier integration",
+          "Products and inventory",
+          "Sales and order reports"
+        ]
+      },
+      "app": {
+        "intro": "iOS and Android apps with a smooth experience, from screen design to store release.",
+        "forWho": "Businesses customers deal with daily: delivery, bookings, services, subscriptions.",
+        "deliverables": [
+          "App UX and UI design",
+          "iOS and Android apps",
+          "An admin panel",
+          "Notifications and alerts",
+          "Store publishing"
+        ]
+      },
+      "systems": {
+        "intro": "Management systems and dashboards built around how you work, cutting manual work and giving you clear numbers.",
+        "forWho": "Companies running on Excel or scattered systems that want everything in one place.",
+        "deliverables": [
+          "Workflow analysis",
+          "A KPI dashboard",
+          "Roles for users and branches",
+          "Integration with current systems",
+          "Exportable reports"
+        ]
+      },
+      "branding": {
+        "intro": "A visual identity and user experience that make your product clear and distinctive, and easy from the first use.",
+        "forWho": "New ventures, or products that need a refreshed look and simpler use.",
+        "deliverables": [
+          "Logo and visual identity",
+          "Colour and type guide",
+          "User journeys and sitemaps",
+          "Interactive prototypes before code",
+          "Usability testing"
+        ]
+      },
+      "seo": {
+        "intro": "We improve your site's speed, content and structure so customers find you on Google when they search for what you do.",
+        "forWho": "Any existing site that wants more search traffic instead of relying on ads alone.",
+        "deliverables": [
+          "Site and keyword audit",
+          "Speed and performance",
+          "Content and titles",
+          "Google Search Console setup",
+          "A monthly results report"
+        ]
+      }
+    }
+  },
+  "about": {
+    "title": "About us",
+    "lead": "Spark Coders is a team specialised in design and development. We believe a successful site starts with understanding your customer and ends with results you can measure.",
+    "metaTitle": "About us",
+    "metaDescription": "Meet the Spark Coders team and how we work, from idea to launch.",
+    "values": [
+      {
+        "title": "Clarity",
+        "body": "You know from the start what we'll do, how long it takes and what it costs."
+      },
+      {
+        "title": "Quality",
+        "body": "Every screen is tested on phones and computers before it reaches you."
+      },
+      {
+        "title": "Partnership",
+        "body": "We don't vanish after launch; we stay with you for support and growth."
+      }
+    ]
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Send us your project details and the Spark Coders team will reply within one working day."
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "lead": "How we handle the information you send us through this site.",
+    "metaDescription": "Spark Coders privacy policy: what we collect, how we use and protect it, and your rights.",
+    "updated": "Last updated: {date}",
+    "sections": [
+      {
+        "title": "What we collect",
+        "body": [
+          "When you fill in the contact form we receive your name, your company or project name, your email, your phone number if you add it, the services you're interested in and your message.",
+          "We don't use cookies for advertising or tracking, and we don't load any scripts from other sites."
+        ]
+      },
+      {
+        "title": "How we use it",
+        "body": [
+          "We use your information only to reply to your request, prepare a quote and follow up on your project.",
+          "We never sell your information or share it with anyone for marketing."
+        ]
+      },
+      {
+        "title": "Where it is kept",
+        "body": [
+          "Messages are sent encrypted (HTTPS) to the team's internal systems and are seen only by the team members handling your request.",
+          "We keep the information for as long as we're in touch or working together, and delete it when you ask."
+        ]
+      },
+      {
+        "title": "Your rights",
+        "body": [
+          "You can ask for a copy of your information, or ask us to correct or delete it, at any time.",
+          "Contact us at {email} and we'll reply within a few working days."
+        ]
+      },
+      {
+        "title": "Changes to this policy",
+        "body": ["We may update this policy from time to time and will show the new date at the top of this page."]
+      }
+    ]
+  }
+}

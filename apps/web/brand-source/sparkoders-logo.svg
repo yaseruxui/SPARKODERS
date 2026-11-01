@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8630 1967" width="1200" height="274">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&amp;display=swap');
+      .name { font-family: 'Chakra Petch', 'Eurostile', 'Arial Black', sans-serif; font-weight: 700; fill: #0B0F3B; }
+      .slogan { font-family: 'Chakra Petch', 'Eurostile', Arial, sans-serif; font-weight: 500; fill: #0B0F3B; fill-opacity: 0.5; }
+    </style>
+    <path id="topShape" d="M935 10H1985L1615 360Q1565 400 1485 400H955Q840 400 818 488Q812 545 865 590L1105 830H420Q300 830 240 760Q200 705 212 640Q222 565 290 505L780 70Q850 10 935 10Z"/>
+    <path id="bottomShape" d="M10 1365L405 1010Q450 975 525 975H1320Q1385 975 1388 912Q1388 875 1360 852L1010 560H1540Q1640 560 1715 635L1880 795Q1928 845 1925 905Q1920 965 1865 1012L1455 1340Q1415 1365 1345 1365Z"/>
+    <clipPath id="topClip"><use href="#topShape"/></clipPath>
+    <clipPath id="bottomClip"><use href="#bottomShape"/></clipPath>
+    <linearGradient id="topBand" x1="210" y1="0" x2="1985" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7A1FD6"/>
+      <stop offset="0.3" stop-color="#9333EA"/>
+      <stop offset="0.75" stop-color="#06B6D4"/>
+      <stop offset="1" stop-color="#00C2CF"/>
+    </linearGradient>
+    <linearGradient id="topFold" x1="480" y1="520" x2="1100" y2="830" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#24189A"/>
+      <stop offset="0.55" stop-color="#2B3FB8"/>
+      <stop offset="1" stop-color="#0FB3C2"/>
+    </linearGradient>
+    <linearGradient id="bottomBand" x1="10" y1="0" x2="1700" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7DF3FF"/>
+      <stop offset="0.45" stop-color="#48B8F5"/>
+      <stop offset="1" stop-color="#1263D9"/>
+    </linearGradient>
+    <linearGradient id="bottomFace" x1="0" y1="560" x2="0" y2="980" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1FB3EA"/>
+      <stop offset="0.6" stop-color="#4AB4F8" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#4AB4F8" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="bottomShadow" cx="1560" cy="1010" r="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0A4FCC" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#0A4FCC" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bottomFold" x1="1150" y1="1365" x2="1925" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#7B2FD8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon (vector) -->
+  <g transform="translate(226.9 344) scale(0.93)">
+    <!-- top ribbon -->
+    <use href="#topShape" fill="url(#topBand)"/>
+    <path clip-path="url(#topClip)" fill="url(#topFold)" d="M290 815Q395 805 470 740L720 480Q810 403 955 400Q840 400 818 488Q812 545 865 590L1105 830H290Z"/>
+    <!-- bottom ribbon -->
+    <use href="#bottomShape" fill="url(#bottomBand)"/>
+    <g clip-path="url(#bottomClip)">
+      <rect x="0" y="550" width="2000" height="440" fill="url(#bottomFace)"/>
+      <rect x="1200" y="700" width="700" height="640" fill="url(#bottomShadow)"/>
+      <path fill="url(#bottomFold)" d="M1100 1420L1640 880Q1715 800 1800 795Q1960 800 1960 905V1420Z"/>
+    </g>
+  </g>
+
+  <!-- Wordmark (editable text) -->
+  <text class="name" x="2400" y="1176" font-size="940" textLength="6000" lengthAdjust="spacing">SPARKODERS</text>
+  <text class="slogan" x="2404" y="1449" font-size="190" textLength="5992" lengthAdjust="spacing">CRAFTING DIGITAL EXCELLENCE</text>
+</svg>

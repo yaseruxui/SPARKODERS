@@ -1,0 +1,446 @@
+@import 'tailwindcss';
+
+/*
+ * SPARKODERS — Spark Coders identity (dark theme).
+ * Palette taken from the logo mark: violet → plum → ocean → aqua on deep ink.
+ * Token names are shared by every component; change values here, not in markup.
+ */
+@theme {
+  --font-sans:
+    var(--font-plex-latin), var(--font-plex-arabic), system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+  --font-display:
+    var(--font-alexandria-latin), var(--font-alexandria-arabic), var(--font-plex-arabic), system-ui, sans-serif;
+
+  --color-violet: #b26cff;
+  --color-plum: #6e29ac;
+  --color-ocean: #0c8ec7;
+  --color-aqua: #7feefa;
+  --color-lilac: #a497fa;
+
+  --color-ink: #07051a;
+  --color-ink-2: #0e0a26;
+  --color-ink-3: #17123a;
+
+  --color-text: #f5f2ff;
+  --color-muted: #aba5d3;
+  /* ≥ 5:1 on every ink surface (small labels, dates, captions). */
+  --color-faint: #8a84b8;
+  --color-danger: #ff9db5;
+  --color-danger-line: #ff7a9c;
+
+  --color-line: rgb(178 108 255 / 0.16);
+  --color-line-strong: rgb(178 108 255 / 0.32);
+  --color-glass: rgb(255 255 255 / 0.045);
+
+  --radius-card: 18px;
+  --radius-panel: 24px;
+
+  /* Motion tokens (transitions.dev scale). */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-drift: drift 18s ease-in-out infinite alternate;
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-ping-soft: ping-soft 1.8s infinite;
+  --animate-shake: shake 280ms linear;
+
+  @keyframes drift {
+    to {
+      transform: translate3d(-3%, 4%, 0) scale(1.06);
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes ping-soft {
+    to {
+      box-shadow: 0 0 0 10px rgb(127 238 250 / 0);
+    }
+  }
+  /* transitions.dev "error state shake": four legs (80/60/80/60 ms), each with its own ease. */
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+      animation-timing-function: var(--ease-brand);
+    }
+    28.57% {
+      transform: translateX(6px);
+      animation-timing-function: var(--ease-brand);
+    }
+    57.14% {
+      transform: translateX(-6px);
+      animation-timing-function: var(--ease-brand);
+    }
+    78.57% {
+      transform: translateX(4px);
+      animation-timing-function: var(--ease-brand);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+  --header-h: 72px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --grad: linear-gradient(115deg, #b26cff 0%, #6e29ac 34%, #0c8ec7 70%, #7feefa 100%);
+  --grad-text: linear-gradient(100deg, #c98eff 0%, #9a62f5 28%, #2ca6e2 66%, #7feefa 100%);
+  --grad-soft: linear-gradient(115deg, #6e29ac 0%, #0c8ec7 100%);
+
+  --duration-stagger: 40ms;
+  --duration-quick: 150ms;
+  --duration-fast: 250ms;
+  --duration-slow: 400ms;
+  --duration-very-slow: 500ms;
+  --blur-small: 2px;
+  --blur-medium: 3px;
+  --distance-micro: 4px;
+  --distance-medium: 12px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-h: 64px;
+  }
+}
+
+/*
+ * Brand font switch: Thmanyah Sans for every role, enabled by NEXT_PUBLIC_BRAND_FONT=thmanyah.
+ * The faces below are only fetched when text actually uses them, and the current stacks stay as
+ * fallbacks, so a deploy without the (uncommitted) files still renders correctly.
+ */
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyah-sans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyah-sans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyah-sans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyah-sans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah/thmanyah-sans-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+html[data-brand-font='thmanyah'] {
+  --font-sans:
+    'Thmanyah Sans', var(--font-plex-latin), var(--font-plex-arabic), system-ui, -apple-system, 'Segoe UI', Tahoma,
+    sans-serif;
+  --font-display:
+    'Thmanyah Sans', var(--font-alexandria-latin), var(--font-alexandria-arabic), var(--font-plex-arabic), system-ui,
+    sans-serif;
+}
+
+/* ---------- Utilities ---------- */
+@utility container-site {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Reserved for the one signature moment (the hero's changing word) and the wordmark. */
+@utility text-gradient {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Accent words in the scroll intro: the brand gradient, weighted toward blue. */
+@utility text-gradient-blue {
+  background: linear-gradient(100deg, #7feefa 0%, #38bdf8 30%, #0c8ec7 62%, #5b7cfa 88%, #9a62f5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grad {
+  background-image: var(--grad);
+}
+
+@utility bg-grad-soft {
+  background-image: var(--grad-soft);
+}
+
+/* The one size for every section title, kept below the hero headline. */
+@utility display-xl {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+@utility label-sm {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-padding-top: var(--header-h);
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--color-plum) var(--color-ink);
+    scrollbar-width: thin;
+  }
+
+  /* Smooth anchor jumps only for people who have not asked for less motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--color-ink);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    overflow-x: clip;
+    caret-color: var(--color-aqua);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  blockquote {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.25em;
+  }
+
+  ::selection {
+    background: var(--color-plum);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-aqua);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  input,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+/* ---------- Motion primitives shared by several components ---------- */
+@layer components {
+  /*
+   * List entrance (transitions.dev "texts reveal"): a short blurred rise, staggered per item.
+   * Hidden only once the client has hydrated, so content never disappears without JS.
+   */
+  .js-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(var(--distance-medium));
+    filter: blur(var(--blur-medium));
+    transition:
+      opacity var(--duration-very-slow) var(--ease-brand),
+      transform var(--duration-very-slow) var(--ease-brand),
+      filter var(--duration-very-slow) var(--ease-brand);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+  .js-ready [data-reveal][data-in] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  /*
+   * Hero lines are hidden before the entrance timeline runs. `.js` is set by an inline script in
+   * <head>; the fallback animation reveals them anyway if the timeline never starts.
+   */
+  .js [data-hero-reveal] {
+    visibility: hidden;
+    animation: reveal-fallback 0s 2.5s forwards;
+  }
+
+  /*
+   * SplitText masks clip their line; padding plus an equal negative margin gives Arabic marks
+   * (dots, shadda, the tails of ي and ع) room inside the mask without moving the layout.
+   */
+  [data-hero-line] > * {
+    padding-block: 0.18em;
+    margin-block: -0.18em;
+  }
+
+  /* Without JS the intro shows only its first sentence; the timeline takes over when it runs. */
+  html:not(.js) [data-sentence]:not(:first-child) {
+    display: none;
+  }
+
+  /* transitions.dev "learn more hover": the arrow nudges forward and its head opens up. */
+  .learn-arrow {
+    transition: translate 350ms var(--ease-brand);
+  }
+  .learn-arm {
+    transform-box: view-box;
+    transform-origin: 5px 12px;
+    transition: rotate 350ms var(--ease-brand);
+  }
+  :is(a, button):hover > .learn-arrow,
+  :is(a, button):focus-visible > .learn-arrow {
+    translate: -2px 0;
+  }
+  [dir='ltr'] :is(a, button):hover > .learn-arrow,
+  [dir='ltr'] :is(a, button):focus-visible > .learn-arrow {
+    translate: 2px 0;
+  }
+  :is(a, button):hover > .learn-arrow .learn-arm-top,
+  :is(a, button):focus-visible > .learn-arrow .learn-arm-top {
+    rotate: 8deg;
+  }
+  :is(a, button):hover > .learn-arrow .learn-arm-bottom,
+  :is(a, button):focus-visible > .learn-arrow .learn-arm-bottom {
+    rotate: -8deg;
+  }
+
+  /* Service icons: soft fill under the stroke, one aqua accent that turns white on hover. */
+  .service-icon .duo {
+    fill: currentColor;
+    fill-opacity: 0.14;
+    stroke: none;
+  }
+  .service-icon .accent {
+    stroke: var(--color-aqua);
+    transition: stroke var(--duration-fast) var(--ease-brand);
+  }
+  .service-icon rect.accent,
+  .service-icon circle.accent {
+    fill: var(--color-aqua);
+    fill-opacity: 0.25;
+  }
+  .group\/row:hover .service-icon .accent {
+    stroke: #fff;
+  }
+
+  /* transitions.dev "text swap soft": changing values cross-blur in place. */
+  .swap-in {
+    animation: swap-in var(--duration-fast) var(--ease-brand);
+  }
+}
+
+@keyframes reveal-fallback {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes swap-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--blur-small));
+    transform: translateY(var(--distance-micro));
+  }
+}
+
+@keyframes mark-in {
+  from {
+    opacity: 0;
+    transform: perspective(600px) rotateY(-70deg) scale(0.7);
+    filter: blur(6px);
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+/*
+ * Reduced motion: spatial movement goes, meaning stays. Loops stop, entrances and swaps keep
+ * their opacity change but lose travel and blur.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .js-ready [data-reveal] {
+    transform: none;
+    filter: none;
+  }
+  .js [data-hero-reveal] {
+    visibility: visible;
+    animation: none;
+  }
+  .animate-marquee,
+  .animate-drift,
+  .animate-shake {
+    animation: none;
+  }
+  .learn-arrow,
+  .learn-arm {
+    transition: none;
+  }
+}
+
+@keyframes float {
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+@keyframes ring-progress {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dot-progress {
+  to {
+    width: 100%;
+  }
+}

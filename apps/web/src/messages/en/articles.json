@@ -1,0 +1,107 @@
+{
+  "content": {
+    "excerpt": "Many projects slip because the content arrives at the last minute. When should you start writing it, and how do you prepare it without holding up design?",
+    "readTime": "5 min",
+    "body": [
+      {
+        "type": "p",
+        "text": "One question we hear a lot: does the content need to be ready before design starts? The short answer: it doesn't need to be final, but it does need to be clear. Good design is built around content, not the other way round."
+      },
+      { "type": "h2", "text": "Why content shapes design" },
+      {
+        "type": "p",
+        "text": "Heading length, the number of services, whether real photos exist — all of it decides how a page looks. If we design with placeholder text and the real copy turns out three times longer, the page has to be rearranged, costing time and money that could have been saved."
+      },
+      { "type": "h2", "text": "What should be ready from day one" },
+      {
+        "type": "ul",
+        "items": [
+          "The list of pages you need",
+          "Your main services or products, by name",
+          "A clear message: who you are and who you serve",
+          "Any photos or logos you already have"
+        ]
+      },
+      { "type": "h2", "text": "What can follow during design" },
+      {
+        "type": "p",
+        "text": "Detailed copy, FAQs and articles can be written alongside design. What matters is a clear structure to design on and a rough idea of how long each part will be."
+      },
+      { "type": "h2", "text": "Our advice" },
+      {
+        "type": "p",
+        "text": "Start with a simple draft for every page, even if it's bullet points. We'll help you shape and word it for your visitors, and you'll get a site that launches on time with no surprises."
+      }
+    ]
+  },
+  "team": {
+    "excerpt": "A website project doesn't succeed on the developer alone. Here are the roles that need to be there — including who should represent you.",
+    "readTime": "4 min",
+    "body": [
+      {
+        "type": "p",
+        "text": "When a website or app project starts, the first question is usually: who's the developer? But a successful project needs a complete team, and every role protects part of the result."
+      },
+      { "type": "h2", "text": "The roles on our side" },
+      {
+        "type": "ul",
+        "items": [
+          "Project manager: keeps the schedule and is your main contact",
+          "UI/UX designer: turns your needs into clear screens",
+          "Developer: builds the site and keeps it fast and secure",
+          "QA tester: checks everything before launch"
+        ]
+      },
+      { "type": "h2", "text": "Most important: who represents you?" },
+      {
+        "type": "p",
+        "text": "We need one person on your side who can decide, answer questions and approve designs on time. Several decision-makers without a clear order is the most common reason projects slip."
+      },
+      { "type": "h2", "text": "How we organise communication" },
+      {
+        "type": "p",
+        "text": "A short weekly meeting, one channel for feedback, and a document that records approved decisions. That way everyone stays on the same page and the project moves steadily."
+      }
+    ]
+  },
+  "brief": {
+    "excerpt": "A clear project brief saves weeks of back-and-forth and gets you a more accurate quote. These are the points to cover.",
+    "readTime": "6 min",
+    "body": [
+      {
+        "type": "p",
+        "text": "Before you contact any software company, spend half an hour writing a simple description of your project. That brief is the basis of the quote and the timeline, and the clearer it is, the more accurate both will be."
+      },
+      { "type": "h2", "text": "1. The goal" },
+      {
+        "type": "p",
+        "text": "What should the site achieve? More sales, bookings, presenting your services? One clear goal beats ten general ones."
+      },
+      { "type": "h2", "text": "2. Your audience" },
+      {
+        "type": "p",
+        "text": "Who will use the site? Their age, their devices and what they look for most. This decides the design and how the content is ordered."
+      },
+      { "type": "h2", "text": "3. Pages and features" },
+      {
+        "type": "ul",
+        "items": [
+          "The essential pages",
+          "Features required in the first release",
+          "Features that can wait for a second phase",
+          "Any systems to connect (payments, shipping, CRM)"
+        ]
+      },
+      { "type": "h2", "text": "4. Examples you like" },
+      {
+        "type": "p",
+        "text": "Send us sites or apps you like and tell us why. Examples convey the feel you want faster than any description."
+      },
+      { "type": "h2", "text": "5. Budget and timeline" },
+      {
+        "type": "p",
+        "text": "Even rough figures help. Knowing the budget and expected date lets us propose the right solution instead of a quote far from what you expect."
+      }
+    ]
+  }
+}

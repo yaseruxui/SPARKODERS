@@ -1,0 +1,17 @@
+node_modules/
+.next/
+dist/
+coverage/
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+.vercel
+.DS_Store
+# Brand fonts are decrypted at build time (see apps/web/README.md).
+apps/web/public/fonts/thmanyah/
+# Local SQLite database, uploads and generated Prisma client (development).
+apps/api/prisma/*.db
+apps/api/prisma/*.db-journal
+apps/api/uploads/
+apps/api/src/generated/

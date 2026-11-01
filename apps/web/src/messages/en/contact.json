@@ -1,0 +1,31 @@
+{
+  "title": "Got a project idea?",
+  "titleAccent": "Talk to us.",
+  "lead": "Send us the details and we'll get back to you within one business day.",
+  "emailLabel": "Email",
+  "phoneLabel": "Phone",
+  "fields": {
+    "name": "Name *",
+    "organisation": "Company or project *",
+    "email": "Email *",
+    "phone": "Mobile",
+    "interests": "What do you need?",
+    "message": "Tell us about your project"
+  },
+  "interests": {
+    "website": "Website",
+    "store": "Online store",
+    "app": "Mobile app",
+    "branding": "Branding & marketing",
+    "seo": "Search visibility",
+    "ai": "AI solutions"
+  },
+  "submit": "Book a free consultation",
+  "sending": "Sending…",
+  "success": "Thank you! We got your message and will reply within one business day.",
+  "invalid": "Please complete the required fields with valid details.",
+  "failed": "We couldn't send your message right now. Please try again shortly.",
+  "unconfigured": "Direct sending isn't enabled yet. Email us at {email}.",
+  "privacyNote": "By sending this form you agree to our",
+  "privacyLink": "privacy policy"
+}

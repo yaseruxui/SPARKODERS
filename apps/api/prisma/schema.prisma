@@ -1,0 +1,61 @@
+// SPARKODERS data model. SQLite in development; Postgres-ready (see prisma.config.ts).
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id                  String    @id @default(cuid())
+  name                String
+  email               String    @unique
+  /// null until the invited user chooses a password.
+  passwordHash        String?
+  /// JSON array of Permission keys; null means full admin.
+  permissions         Json?
+  avatarUrl           String?
+  /// sha256 of the invitation token (the raw token is only ever in the email link).
+  invitationTokenHash String?   @unique
+  invitationExpiresAt DateTime?
+  /// Bumped on password change or "sign out everywhere"; older session tokens stop working.
+  tokenVersion        Int       @default(0)
+  lastLoginAt         DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  notes               ContactMessageNote[]
+}
+
+model ContactMessage {
+  id           String   @id @default(cuid())
+  name         String
+  organisation String
+  email        String
+  phone        String?
+  /// JSON array of interest keys.
+  interests    Json
+  message      String?
+  locale       String?
+  /// new | in_progress | replied | closed | spam
+  status       String   @default("new")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  notes        ContactMessageNote[]
+
+  @@index([status, createdAt])
+}
+
+model ContactMessageNote {
+  id        String         @id @default(cuid())
+  body      String
+  createdAt DateTime       @default(now())
+  message   ContactMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  messageId String
+  author    User?          @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId  String?
+}

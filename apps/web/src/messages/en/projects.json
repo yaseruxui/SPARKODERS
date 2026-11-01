@@ -1,0 +1,112 @@
+{
+  "education": {
+    "client": "Al Noor Academy",
+    "year": "2026",
+    "duration": "10 weeks",
+    "summary": "A learning platform that brings lessons, quizzes and student progress together for students, parents and teachers.",
+    "services": ["UI design", "Web platform", "Admin dashboard", "Payments"],
+    "challenge": "The academy ran its lessons through WhatsApp groups and scattered files. Students missed lessons, parents couldn't follow progress, and teachers spent hours marking quizzes by hand.",
+    "solution": "We designed one platform for everyone: students follow lessons in order and take auto-marked quizzes, parents get a clear weekly report, and teachers upload content from a simple dashboard.",
+    "features": [
+      "Learning paths by grade",
+      "Auto-marked quizzes with explanations",
+      "Weekly reports for parents",
+      "Subscriptions and online payment"
+    ],
+    "results": [
+      { "value": "+3,200", "label": "active students in the first term" },
+      { "value": "-70%", "label": "time spent marking quizzes" },
+      { "value": "4.8/5", "label": "parent rating" }
+    ]
+  },
+  "ecommerce": {
+    "client": "Lamsa",
+    "year": "2026",
+    "duration": "8 weeks",
+    "summary": "An online store for a local fashion label, with an elegant, fast buying experience on mobile.",
+    "services": ["Store identity", "Checkout design", "Store development", "Shipping and payments"],
+    "challenge": "All sales went through Instagram DMs and orders were logged by hand, so orders got lost, replies were slow and nobody knew which products sold best.",
+    "solution": "We built a store that carries the brand's feel: large photography, easy browsing by collection and a two-step checkout, connected to the courier and inventory so everything updates on its own.",
+    "features": [
+      "Two-step checkout with mada and Apple Pay",
+      "Direct courier integration",
+      "Low-stock alerts",
+      "Daily sales reports"
+    ],
+    "results": [
+      { "value": "x2.4", "label": "sales growth in 3 months" },
+      { "value": "68%", "label": "of orders from mobile" },
+      { "value": "1.6 s", "label": "average page load" }
+    ]
+  },
+  "clinic": {
+    "client": "Shifa Clinics",
+    "year": "2025",
+    "duration": "6 weeks",
+    "summary": "An appointment system that lets patients book in under a minute and takes pressure off the front desk.",
+    "services": ["Needs analysis", "UI design", "Booking system", "SMS reminders"],
+    "challenge": "Every booking came by phone, so lines were busy at peak times, and many appointments were missed because there were no reminders.",
+    "solution": "We designed a booking system that shows doctors and open slots live, sends a reminder before each visit with one-tap cancel or reschedule, and gives reception a clear view of the day.",
+    "features": ["Booking in under a minute", "Automatic reminders", "One-tap rescheduling", "Front-desk day view"],
+    "results": [
+      { "value": "-45%", "label": "calls to reception" },
+      { "value": "-60%", "label": "missed appointments" },
+      { "value": "72%", "label": "of bookings now online" }
+    ]
+  },
+  "delivery": {
+    "client": "Tawseel",
+    "year": "2025",
+    "duration": "12 weeks",
+    "summary": "A delivery app for restaurants and shops, with live courier tracking on the map.",
+    "services": ["Mobile app design", "iOS and Android", "Courier app", "Admin panel"],
+    "challenge": "The client wanted to enter the delivery market quickly with an app that could stand next to the big players, on a limited budget and timeline.",
+    "solution": "We built three connected parts: the customer app, the courier app and an admin panel, with a simple ordering flow and live tracking that keeps customers reassured until their order arrives.",
+    "features": ["Live courier tracking", "Dedicated courier app", "Offers and coupons", "Orders and zones admin"],
+    "results": [
+      { "value": "+25K", "label": "downloads in two months" },
+      { "value": "4.7", "label": "store rating" },
+      { "value": "28 min", "label": "average delivery time" }
+    ]
+  },
+  "dashboard": {
+    "client": "Shuhnat",
+    "year": "2026",
+    "duration": "9 weeks",
+    "summary": "A dashboard for a shipping company that shows shipments, reports and performance on one clear screen.",
+    "services": ["UX", "Dashboard design", "Web development", "Systems integration"],
+    "challenge": "Data lived in several systems and Excel sheets, management needed days to prepare a weekly report, and nobody had a live view of shipments.",
+    "solution": "We brought the data into one live dashboard: a shipments map, clear KPIs, alerts for delayed shipments and one-click report exports.",
+    "features": [
+      "Live view of every shipment",
+      "KPIs per branch and courier",
+      "Delayed-shipment alerts",
+      "One-click report export"
+    ],
+    "results": [
+      { "value": "3 days → minutes", "label": "to prepare the weekly report" },
+      { "value": "-30%", "label": "delayed shipments" },
+      { "value": "120+", "label": "daily users" }
+    ]
+  },
+  "restaurant": {
+    "client": "Beit Al Jadda",
+    "year": "2025",
+    "duration": "4 weeks",
+    "summary": "A website and digital menu for a restaurant, with QR codes on the tables and direct ordering.",
+    "services": ["Website design", "Digital menu", "QR codes", "Online ordering"],
+    "challenge": "Paper menus wore out and were hard to reprice, and the restaurant had no clear online presence to show its dishes and take orders.",
+    "solution": "We designed a warm site that reflects the restaurant, a digital menu the staff update themselves, and a QR code on every table that opens the menu with ordering built in.",
+    "features": [
+      "Menu the restaurant updates itself",
+      "QR code per table",
+      "Pickup or delivery orders",
+      "Appetising dish photography"
+    ],
+    "results": [
+      { "value": "+40%", "label": "pickup and delivery orders" },
+      { "value": "0", "label": "menu printing costs" },
+      { "value": "x3", "label": "monthly site visits" }
+    ]
+  }
+}
