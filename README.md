@@ -8,6 +8,7 @@ Monorepo for the SPARKODERS (سبارك كودرز) website, its admin dashboard
 | `apps/admin`          | Dashboard: inbox, users and (next phases) all site content | React 19, Vite, shadcn/ui, TanStack Query |
 | `apps/api`            | REST API: auth, users and permissions, contact inbox       | NestJS 12, Prisma 7 (SQLite → Postgres)   |
 | `packages/contracts`  | Data shapes shared by all three (Zod schemas + types)      | Zod 4                                     |
+| `docs/brand`          | Brand identity guide (open in a browser)                   | HTML                                      |
 
 The admin dashboard follows the Sekka dashboard (`yaseruxui/sekka-dashboard`): same layout,
 components and flows, rebuilt on NestJS + React instead of Laravel + Inertia.
@@ -39,6 +40,17 @@ CONTACT_WEBHOOK_KEY=<the same value as CONTACT_WEBHOOK_KEY in apps/api/.env>
 Without them the site still works and the form asks visitors to email instead. In production
 the URL must be https (the site refuses to start otherwise).
 
+To let the dashboard edit the site's content, also set in `apps/web/.env.local`:
+
+```
+CMS_API_URL=http://localhost:4000
+REVALIDATE_SECRET=<the same value as SITE_REVALIDATE_SECRET in apps/api/.env>
+```
+
+and in `apps/api/.env`: `SITE_URL=http://localhost:3000` and `SITE_REVALIDATE_SECRET=…`.
+Then open the dashboard → الخدمات → «استيراد من الموقع». Without `CMS_API_URL` the site simply
+shows its bundled content.
+
 ## How the pieces talk
 
 - **Site → API**: the contact form's server action POSTs a `ContactSubmission` to
@@ -53,8 +65,10 @@ the URL must be https (the site refuses to start otherwise).
 
 1. ✅ Monorepo; API with auth, users, invitations and permissions; inbox wired to the site form;
    dashboard with login, overview, inbox, users and settings.
-2. Site content in the dashboard: services, team, testimonials, page texts, contact info and
-   socials. The site reads them from the API and falls back to its bundled copy.
+2. ✅ Site content in the dashboard: services, team, testimonials, every page text (Arabic and
+   English), contact details and socials, and a media library. The site reads them from the API
+   (`CMS_API_URL`, cached under the `cms` tag) and falls back to its bundled copy; every save calls
+   the site's `/api/revalidate`. «استيراد من الموقع» copies the bundled content in once.
 3. Projects (block editor, drafts, publish) and blog articles.
 4. Media library, notifications (email on new enquiry), mail settings.
 

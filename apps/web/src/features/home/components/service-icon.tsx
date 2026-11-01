@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
 import { cn } from '@/utils/cn';
-import type { ServiceKey } from '../types';
+import type { ServiceIcon as ServiceIconKey } from '@sparkoders/contracts';
 
 /**
  * Duotone line icons on a 48px grid: a soft filled shape (`.duo`) under a crisp stroke, with one
  * aqua accent each. Drawn inline so nothing is fetched.
  */
-const ICONS: Record<ServiceKey, ReactNode> = {
+const ICONS: Record<ServiceIconKey, ReactNode> = {
   website: (
     <>
       <rect className="duo" x="5" y="8" width="38" height="30" rx="5" />
@@ -71,7 +71,7 @@ const ICONS: Record<ServiceKey, ReactNode> = {
 };
 
 /** A service's duotone icon. Put it inside a `.service-icon` box, which styles its fill and accent. */
-export function ServiceIcon({ service, className }: { service: ServiceKey; className?: string }) {
+export function ServiceIcon({ service, className }: { service: ServiceIconKey; className?: string }) {
   return (
     <svg
       viewBox="0 0 48 48"

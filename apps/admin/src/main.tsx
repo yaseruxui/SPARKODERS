@@ -15,6 +15,11 @@ import { InvitationPage } from '@/pages/invitation';
 import { LoginPage } from '@/pages/login';
 import { SettingsPage } from '@/pages/settings';
 import { UsersPage } from '@/pages/users';
+import { ContactSettingsPage } from '@/pages/contact-settings';
+import { MediaPage } from '@/pages/media';
+import { TextsPage } from '@/pages/texts';
+import { CollectionPage } from '@/features/content/collection-page';
+import { servicesConfig, teamConfig, testimonialsConfig } from '@/features/content/collections';
 import type { Permission } from '@sparkoders/contracts';
 import type { ReactNode } from 'react';
 
@@ -34,6 +39,12 @@ const router = createBrowserRouter([
       { index: true, element: <DashboardPage /> },
       { path: 'inbox', element: <Gate permission="inbox"><InboxPage /></Gate> },
       { path: 'users', element: <Gate permission="users"><UsersPage /></Gate> },
+      { path: 'services', element: <Gate permission="content"><CollectionPage key="services" config={servicesConfig} /></Gate> },
+      { path: 'team', element: <Gate permission="content"><CollectionPage key="team" config={teamConfig} /></Gate> },
+      { path: 'testimonials', element: <Gate permission="content"><CollectionPage key="testimonials" config={testimonialsConfig} /></Gate> },
+      { path: 'texts', element: <Gate permission="content"><TextsPage /></Gate> },
+      { path: 'contact', element: <Gate permission="content"><ContactSettingsPage /></Gate> },
+      { path: 'media', element: <Gate permission="media"><MediaPage /></Gate> },
       { path: 'settings', element: <SettingsPage /> },
       { path: '*', element: <Navigate to="/" replace /> },
     ],

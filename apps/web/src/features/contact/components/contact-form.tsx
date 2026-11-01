@@ -5,14 +5,13 @@ import { useActionState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input, Label, Textarea } from '@/components/ui/field';
 import { ArrowIcon } from '@/components/ui/icons';
-import { site } from '@/lib/config/site';
 import { shakeInvalidFields } from '../lib/shake-invalid';
 import { submitContact } from '../services/actions';
 import { initialFormStatus, interestKeys } from '../types';
 import { FormMessage } from './form-message';
 import { Honeypot } from './honeypot';
 
-export function ContactForm({ privacyHref }: { privacyHref: string }) {
+export function ContactForm({ privacyHref, email }: { privacyHref: string; email: string }) {
   const t = useTranslations('contact');
   const [state, action, pending] = useActionState(submitContact, initialFormStatus);
   const formRef = useRef<HTMLFormElement>(null);
@@ -29,7 +28,7 @@ export function ContactForm({ privacyHref }: { privacyHref: string }) {
       : state.status === 'invalid'
         ? t('invalid')
         : state.status === 'unconfigured'
-          ? t('unconfigured', { email: site.email })
+          ? t('unconfigured', { email })
           : state.status === 'failed'
             ? t('failed')
             : null;

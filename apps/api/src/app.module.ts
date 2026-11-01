@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
+import { ContentModule } from './content/content.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HealthController } from './health/health.controller';
 import { InboxModule } from './inbox/inbox.module';
+import { MediaModule } from './media/media.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PublicModule } from './public/public.module';
 import { UsersModule } from './users/users.module';
@@ -17,6 +19,8 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     UsersModule,
     InboxModule,
+    ContentModule,
+    MediaModule,
     PublicModule,
     DashboardModule,
   ],

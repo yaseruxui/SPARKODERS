@@ -6,7 +6,8 @@ import { GATE_COOKIE, getGateConfig, isValidGateToken } from '@/lib/site-gate';
 const intl = createMiddleware(routing);
 
 /** Reachable without the password: the unlock page and the assets it shows. */
-const OPEN_PATHS = new Set(['/unlock', '/brand/sparkoders-mark.webp', '/icon.png', '/apple-icon.png', '/favicon.ico']);
+/** The two API routes the dashboard calls check their own secret. */
+const OPEN_PATHS = new Set(['/api/revalidate', '/api/content-defaults', '/unlock', '/brand/sparkoders-mark.webp', '/icon.png', '/apple-icon.png', '/favicon.ico']);
 
 /** Pages are paths without a file extension outside Next's internals (the old next-intl matcher). */
 function isPage(pathname: string): boolean {

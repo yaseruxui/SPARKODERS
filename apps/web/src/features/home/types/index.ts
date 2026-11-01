@@ -57,7 +57,7 @@ export interface Testimonial {
 
 /** Serializable testimonial handed to the client carousel. */
 export interface Quote {
-  key: TestimonialKey;
+  key: string;
   quote: string;
   name: string;
   role: string;

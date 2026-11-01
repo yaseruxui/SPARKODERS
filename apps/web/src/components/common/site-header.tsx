@@ -1,10 +1,10 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { ButtonLink } from '@/components/ui/button';
 import { ArrowIcon } from '@/components/ui/icons';
-import { site } from '@/lib/config/site';
 import { getPathname } from '@/lib/i18n/navigation';
 import { localePath, navHref, routes } from '@/lib/i18n/paths';
 import { socialIconPaths } from '@/lib/config/social-icons';
+import { getContact } from '@/lib/content';
 import { routing } from '@/lib/i18n/routing';
 import { navSections } from '@/lib/config/navigation';
 import { BrandLogo } from './brand-logo';
@@ -13,6 +13,7 @@ import { SiteMenu } from './site-menu';
 
 export async function SiteHeader() {
   const [locale, t, tNav] = await Promise.all([getLocale(), getTranslations('common'), getTranslations('navigation')]);
+  const contact = await getContact();
   const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
 
   return (
@@ -42,7 +43,7 @@ export async function SiteHeader() {
                 href: navHref(locale, section),
                 label: tNav(`items.${section.key}`),
               }))}
-              socials={site.socials.map((social) => ({
+              socials={contact.socials.map((social) => ({
                 href: social.href,
                 label: t(`socials.${social.key}`),
                 icon: socialIconPaths[social.key],
@@ -56,7 +57,7 @@ export async function SiteHeader() {
                 ctaTitle: tNav('menuCtaTitle'),
                 cta: t('startProject'),
               }}
-              email={site.email}
+              email={contact.email}
               contactHref={localePath(locale, routes.contact)}
             />
           </div>

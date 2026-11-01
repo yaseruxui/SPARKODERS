@@ -59,3 +59,46 @@ model ContactMessageNote {
   author    User?          @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId  String?
 }
+
+/// Ordered items of a dashboard collection (services, team, testimonials). `data` follows the
+/// collection's schema in @sparkoders/contracts.
+model CollectionItem {
+  id         String   @id @default(cuid())
+  collection String
+  position   Int      @default(0)
+  published  Boolean  @default(true)
+  data       Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([collection, position])
+}
+
+/// An edited page text: a message key in one language. Absent keys use the site's bundled copy.
+model TextOverride {
+  locale    String
+  key       String
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@id([locale, key])
+}
+
+/// Small JSON settings by key (e.g. "contact").
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+/// An uploaded file in the media library.
+model Media {
+  id        String   @id @default(cuid())
+  filename  String
+  /// Storage key (path under the uploads directory).
+  storedAs  String   @unique
+  mime      String
+  size      Int
+  alt       String   @default("")
+  createdAt DateTime @default(now())
+}

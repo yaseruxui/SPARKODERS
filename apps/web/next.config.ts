@@ -23,11 +23,26 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
 ].join('; ');
 
+/** Media uploaded in the dashboard is served by the API ({CMS_API_URL}/uploads/…); next/image may optimise it. */
+const cmsOrigin = process.env.CMS_API_URL ? new URL(process.env.CMS_API_URL) : null;
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
     formats: ['image/avif', 'image/webp'],
+    remotePatterns: cmsOrigin
+      ? [
+          {
+            protocol: cmsOrigin.protocol.replace(':', '') as 'http' | 'https',
+            hostname: cmsOrigin.hostname,
+            port: cmsOrigin.port,
+            pathname: '/uploads/**',
+          },
+        ]
+      : [],
+    // A local API (development) lives on a private address, which Next refuses unless allowed.
+    dangerouslyAllowLocalIP: !isProd && !!cmsOrigin,
   },
   async headers() {
     return [

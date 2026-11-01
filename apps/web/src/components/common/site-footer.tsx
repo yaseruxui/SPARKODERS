@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { footerSections, navSections } from '@/lib/config/navigation';
 import { site } from '@/lib/config/site';
+import { getContact } from '@/lib/content';
 import { localePath, navHref, routes } from '@/lib/i18n/paths';
 import { resolveLocale } from '@/lib/i18n/resolve-locale';
 import { BrandLogo } from './brand-logo';
@@ -13,6 +14,7 @@ export async function SiteFooter() {
     getLocale(),
   ]);
   const locale = resolveLocale(rawLocale);
+  const contact = await getContact();
   const hrefFor = (key: (typeof footerSections)[number]) => {
     const section = navSections.find((s) => s.key === key);
     return section ? navHref(locale, section) : localePath(locale, '/');
@@ -44,7 +46,7 @@ export async function SiteFooter() {
           <nav aria-label={tNav('socialAria')}>
             <p className="label-sm">{t('followUs')}</p>
             <ul className="mt-3.5 grid gap-1.5">
-              {site.socials.slice(0, 3).map((social) => (
+              {contact.socials.slice(0, 3).map((social) => (
                 <li key={social.key}>
                   <a
                     href={social.href}

@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   LogOut,
   MessageSquareQuote,
+  Phone,
   Settings,
   Sparkles,
   Users,
@@ -54,15 +55,16 @@ const navGroups: NavGroup[] = [
     items: [
       { title: 'المشاريع', url: '/projects', icon: FolderKanban, permission: 'projects', soon: true },
       { title: 'المدونة', url: '/blog', icon: BookOpen, permission: 'blog', soon: true },
-      { title: 'الخدمات', url: '/services', icon: Sparkles, permission: 'content', soon: true },
-      { title: 'الفريق', url: '/team', icon: UsersRound, permission: 'content', soon: true },
-      { title: 'آراء العملاء', url: '/testimonials', icon: MessageSquareQuote, permission: 'content', soon: true },
-      { title: 'نصوص الصفحات', url: '/pages', icon: FileText, permission: 'content', soon: true },
+      { title: 'الخدمات', url: '/services', icon: Sparkles, permission: 'content' },
+      { title: 'الفريق', url: '/team', icon: UsersRound, permission: 'content' },
+      { title: 'آراء العملاء', url: '/testimonials', icon: MessageSquareQuote, permission: 'content' },
+      { title: 'نصوص الصفحات', url: '/texts', icon: FileText, permission: 'content' },
+      { title: 'معلومات التواصل', url: '/contact', icon: Phone, permission: 'content' },
     ],
   },
   {
     title: 'الوسائط',
-    items: [{ title: 'مكتبة الوسائط', url: '/media', icon: Images, permission: 'media', soon: true }],
+    items: [{ title: 'مكتبة الوسائط', url: '/media', icon: Images, permission: 'media' }],
   },
 ];
 

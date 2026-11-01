@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import { PageHero } from '@/components/common/page-hero';
-import { site } from '@/lib/config/site';
+import { getContact } from '@/lib/content';
 import { routes } from '@/lib/i18n/paths';
 import { resolveLocale } from '@/lib/i18n/resolve-locale';
 import { buildPageMetadata } from '@/lib/seo/metadata';
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/privacy'
 export default async function PrivacyPage({ params }: PageProps<'/[locale]/privacy'>) {
   const locale = resolveLocale((await params).locale);
   setRequestLocale(locale);
-  const [t, format] = await Promise.all([getTranslations('pages.privacy'), getFormatter()]);
+  const [t, format, contact] = await Promise.all([getTranslations('pages.privacy'), getFormatter(), getContact()]);
   const sections = t.raw('sections') as { title: string; body: string[] }[];
 
   return (
@@ -47,7 +47,7 @@ export default async function PrivacyPage({ params }: PageProps<'/[locale]/priva
             </h2>
             {section.body.map((paragraph) => (
               <p key={paragraph} className="my-3">
-                {paragraph.replace('{email}', site.email)}
+                {paragraph.replace('{email}', contact.email)}
               </p>
             ))}
           </section>

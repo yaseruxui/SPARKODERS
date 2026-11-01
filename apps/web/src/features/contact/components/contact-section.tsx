@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { localePath, routes } from '@/lib/i18n/paths';
 import { resolveLocale } from '@/lib/i18n/resolve-locale';
-import { site } from '@/lib/config/site';
+import { getContact } from '@/lib/content';
 import { ContactForm } from './contact-form';
 import { Kashida } from '@/components/ui/kashida';
 import { cn } from '@/utils/cn';
@@ -10,6 +10,7 @@ import { cn } from '@/utils/cn';
 export async function ContactSection({ asPage = false }: { asPage?: boolean }) {
   const [t, rawLocale] = await Promise.all([getTranslations('contact'), getLocale()]);
   const locale = resolveLocale(rawLocale);
+  const contact = await getContact();
   const Heading = asPage ? 'h1' : 'h2';
 
   return (
@@ -35,19 +36,19 @@ export async function ContactSection({ asPage = false }: { asPage?: boolean }) {
           <ul className="mt-8 grid gap-3">
             <li className="flex items-baseline gap-4">
               <span className="min-w-16 text-sm text-faint">{t('emailLabel')}</span>
-              <a href={`mailto:${site.email}`} dir="ltr" className="hover:text-aqua">
-                {site.email}
+              <a href={`mailto:${contact.email}`} dir="ltr" className="hover:text-aqua">
+                {contact.email}
               </a>
             </li>
             <li className="flex items-baseline gap-4">
               <span className="min-w-16 text-sm text-faint">{t('phoneLabel')}</span>
-              <a href={`tel:${site.phone}`} dir="ltr" className="hover:text-aqua">
-                {site.phoneDisplay}
+              <a href={`tel:${contact.phone}`} dir="ltr" className="hover:text-aqua">
+                {contact.phoneDisplay}
               </a>
             </li>
           </ul>
         </div>
-        <ContactForm privacyHref={localePath(locale, routes.privacy)} />
+        <ContactForm privacyHref={localePath(locale, routes.privacy)} email={contact.email} />
       </div>
     </section>
   );

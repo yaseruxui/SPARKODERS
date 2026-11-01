@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { siWhatsapp } from 'simple-icons';
-import { site } from '@/lib/config/site';
+import { getContact } from '@/lib/content';
 
 /**
  * Floating WhatsApp shortcut, fixed to the bottom end corner of every page. It is a plain link to
@@ -8,7 +8,8 @@ import { site } from '@/lib/config/site';
  */
 export async function WhatsAppButton() {
   const t = await getTranslations('common.whatsapp');
-  const href = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t('message'))}`;
+  const { whatsapp } = await getContact();
+  const href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(t('message'))}`;
 
   return (
     <a

@@ -4,7 +4,7 @@ import { ArrowIcon } from '@/components/ui/icons';
 import { localePath, routes } from '@/lib/i18n/paths';
 import { resolveLocale } from '@/lib/i18n/resolve-locale';
 import { Kashida } from '@/components/ui/kashida';
-import { services } from '../data/content';
+import { getServices } from '@/lib/content';
 import { ServicesList } from './services-list';
 
 /**
@@ -36,12 +36,13 @@ export async function ServicesSection() {
         </div>
         <ServicesList
           ctaLabel={t('cta')}
-          rows={services.map((key) => ({
-            key,
-            title: t(`items.${key}.title`),
-            body: t(`items.${key}.body`),
-            alt: t(`items.${key}.alt`),
-            image: `/images/services/${key}.webp`,
+          rows={(await getServices(locale)).map((s) => ({
+            key: s.key,
+            icon: s.icon,
+            title: s.title,
+            body: s.body,
+            alt: s.alt,
+            image: s.image,
           }))}
         />
       </div>

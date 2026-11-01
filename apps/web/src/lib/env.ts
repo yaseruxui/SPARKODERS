@@ -12,6 +12,10 @@ const serverSchema = z.object({
     .optional(),
   /** Sent as the x-contact-key header; must equal the API's CONTACT_WEBHOOK_KEY (apps/api). */
   CONTACT_WEBHOOK_KEY: z.string().min(8).optional(),
+  /** The dashboard API (apps/api). Set → edited content is read from {CMS_API_URL}/public/content. */
+  CMS_API_URL: z.url().optional(),
+  /** Shared with the API's SITE_REVALIDATE_SECRET; guards /api/revalidate and /api/content-defaults. */
+  REVALIDATE_SECRET: z.string().min(16).optional(),
   /** Four digits that unlock the private site. Unset (with the secret) → the site is public. */
   SITE_PASSWORD: z
     .string()
@@ -42,6 +46,8 @@ export function getServerEnv(): z.infer<typeof serverSchema> {
   return serverSchema.parse({
     CONTACT_WEBHOOK_URL: emptyToUndefined(process.env.CONTACT_WEBHOOK_URL),
     CONTACT_WEBHOOK_KEY: emptyToUndefined(process.env.CONTACT_WEBHOOK_KEY),
+    CMS_API_URL: emptyToUndefined(process.env.CMS_API_URL),
+    REVALIDATE_SECRET: emptyToUndefined(process.env.REVALIDATE_SECRET),
     SITE_PASSWORD: emptyToUndefined(process.env.SITE_PASSWORD),
     SITE_GATE_SECRET: emptyToUndefined(process.env.SITE_GATE_SECRET),
   });
