@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { Permission } from './permissions';
 
 /** A text in both site languages. */
 export const localizedSchema = z.object({ ar: z.string().trim().max(4000), en: z.string().trim().max(4000) });
@@ -45,21 +46,82 @@ export const testimonialDataSchema = z.object({
 });
 export type TestimonialData = z.infer<typeof testimonialDataSchema>;
 
+/** URL part of a project or article: lowercase letters, digits and hyphens. */
+export const slugSchema = z.string().trim().min(2).max(80).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'slug');
+
+/** Brand-gradient artwork used when a card has no image (1–6). */
+export const accentSchema = z.number().int().min(1).max(6);
+
+export const projectDataSchema = z.object({
+  slug: slugSchema,
+  accent: accentSchema,
+  image: imageRefSchema,
+  title: localizedSchema,
+  category: localizedSchema,
+  alt: localizedSchema,
+  summary: localizedSchema,
+  client: localizedSchema,
+  year: z.string().trim().max(10),
+  duration: localizedSchema,
+  services: localizedListSchema,
+  challenge: localizedSchema,
+  solution: localizedSchema,
+  features: localizedListSchema,
+  results: z.array(z.object({ value: z.string().trim().max(40), label: localizedSchema })).max(6),
+});
+export type ProjectData = z.infer<typeof projectDataSchema>;
+
+/** A block of an article body. */
+export const articleBlockSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('h2'), text: z.string().trim().max(300) }),
+  z.object({ type: z.literal('p'), text: z.string().trim().max(6000) }),
+  z.object({ type: z.literal('ul'), items: z.array(z.string().trim().max(500)).max(30) }),
+]);
+export type ArticleBlock = z.infer<typeof articleBlockSchema>;
+
+export const postDataSchema = z.object({
+  slug: slugSchema,
+  accent: accentSchema,
+  image: imageRefSchema,
+  /** ISO date (YYYY-MM-DD). */
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  title: localizedSchema,
+  alt: localizedSchema,
+  category: localizedSchema,
+  excerpt: localizedSchema,
+  readTime: localizedSchema,
+  body: z.object({ ar: z.array(articleBlockSchema).max(200), en: z.array(articleBlockSchema).max(200) }),
+});
+export type PostData = z.infer<typeof postDataSchema>;
+
 /** Collections edited as ordered lists in the dashboard. */
-export const COLLECTIONS = ['services', 'team', 'testimonials'] as const;
+export const COLLECTIONS = ['services', 'team', 'testimonials', 'projects', 'posts'] as const;
 export type CollectionKey = (typeof COLLECTIONS)[number];
 
 export const collectionSchemas = {
   services: serviceDataSchema,
   team: teamMemberDataSchema,
   testimonials: testimonialDataSchema,
+  projects: projectDataSchema,
+  posts: postDataSchema,
 } as const;
 
 export interface CollectionDataMap {
   services: ServiceData;
   team: TeamMemberData;
   testimonials: TestimonialData;
+  projects: ProjectData;
+  posts: PostData;
 }
+
+/** Which dashboard permission edits each collection. */
+export const COLLECTION_PERMISSION = {
+  services: 'content',
+  team: 'content',
+  testimonials: 'content',
+  projects: 'projects',
+  posts: 'blog',
+} as const satisfies Record<CollectionKey, Permission>;
 
 export interface CollectionItem<K extends CollectionKey = CollectionKey> {
   id: string;
@@ -113,6 +175,8 @@ export interface PublicContent {
   services: CollectionItem<'services'>['data'][];
   team: CollectionItem<'team'>['data'][];
   testimonials: CollectionItem<'testimonials'>['data'][];
+  projects: ProjectData[];
+  posts: PostData[];
 }
 
 /** What the site bundles today, served once to fill an empty dashboard (GET {site}/api/content-defaults). */
@@ -121,6 +185,8 @@ export interface ContentDefaults {
   services: ServiceData[];
   team: TeamMemberData[];
   testimonials: TestimonialData[];
+  projects: ProjectData[];
+  posts: PostData[];
   /** Every message key → text, per language, for the page-text editor. */
   texts: TextOverrides;
 }

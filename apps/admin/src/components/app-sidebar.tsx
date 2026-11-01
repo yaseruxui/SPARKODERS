@@ -53,8 +53,8 @@ const navGroups: NavGroup[] = [
   {
     title: 'محتوى الموقع',
     items: [
-      { title: 'المشاريع', url: '/projects', icon: FolderKanban, permission: 'projects', soon: true },
-      { title: 'المدونة', url: '/blog', icon: BookOpen, permission: 'blog', soon: true },
+      { title: 'المشاريع', url: '/projects', icon: FolderKanban, permission: 'projects' },
+      { title: 'المدونة', url: '/blog', icon: BookOpen, permission: 'blog' },
       { title: 'الخدمات', url: '/services', icon: Sparkles, permission: 'content' },
       { title: 'الفريق', url: '/team', icon: UsersRound, permission: 'content' },
       { title: 'آراء العملاء', url: '/testimonials', icon: MessageSquareQuote, permission: 'content' },

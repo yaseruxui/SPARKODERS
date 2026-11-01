@@ -69,7 +69,8 @@ shows its bundled content.
    English), contact details and socials, and a media library. The site reads them from the API
    (`CMS_API_URL`, cached under the `cms` tag) and falls back to its bundled copy; every save calls
    the site's `/api/revalidate`. «استيراد من الموقع» copies the bundled content in once.
-3. Projects (block editor, drafts, publish) and blog articles.
+3. ✅ Projects (case studies with results) and blog articles (block editor for the body, Arabic
+   and English) in the dashboard. New slugs render on first visit, no rebuild needed.
 4. Media library, notifications (email on new enquiry), mail settings.
 
 ## Database

@@ -40,7 +40,18 @@ export class ContentService {
     return rows.map((row) => toItem<K>(row));
   }
 
+  /** Projects and posts are addressed by slug, so it must be unique within the collection. */
+  private async assertUniqueSlug(collection: CollectionKey, data: unknown, exceptId?: string): Promise<void> {
+    const slug = (data as { slug?: unknown }).slug;
+    if (typeof slug !== 'string') return;
+    const rows = await this.prisma.collectionItem.findMany({ where: { collection } });
+    if (rows.some((row) => row.id !== exceptId && (row.data as { slug?: unknown }).slug === slug)) {
+      throw new BadRequestException({ message: 'هذا الرابط (slug) مستخدم بالفعل.', fields: ['data.slug'] });
+    }
+  }
+
   async create<K extends CollectionKey>(collection: K, input: { published: boolean; data: unknown }): Promise<CollectionItem<K>> {
+    await this.assertUniqueSlug(collection, input.data);
     const last = await this.prisma.collectionItem.findFirst({ where: { collection }, orderBy: { position: 'desc' } });
     const row = await this.prisma.collectionItem.create({
       data: { collection, published: input.published, data: input.data as object, position: (last?.position ?? -1) + 1 },
@@ -51,6 +62,7 @@ export class ContentService {
 
   async update<K extends CollectionKey>(collection: K, id: string, input: { published: boolean; data: unknown }): Promise<CollectionItem<K>> {
     await this.find(collection, id);
+    await this.assertUniqueSlug(collection, input.data, id);
     const row = await this.prisma.collectionItem.update({ where: { id }, data: { published: input.published, data: input.data as object } });
     void this.site.revalidate();
     return toItem<K>(row);
@@ -104,7 +116,15 @@ export class ContentService {
     ]);
     const of = <K extends CollectionKey>(key: K) =>
       rows.filter((r) => r.collection === key).map((r) => r.data as unknown as CollectionItem<K>['data']);
-    return { settings, texts, services: of('services'), team: of('team'), testimonials: of('testimonials') };
+    return {
+      settings,
+      texts,
+      services: of('services'),
+      team: of('team'),
+      testimonials: of('testimonials'),
+      projects: of('projects'),
+      posts: of('posts'),
+    };
   }
 
   /**
@@ -122,7 +142,7 @@ export class ContentService {
     for (const key of COLLECTIONS) {
       const count = await this.prisma.collectionItem.count({ where: { collection: key } });
       if (count > 0 && !force) continue;
-      const items = defaults[key] as object[];
+      const items = (defaults[key] ?? []) as object[];
       await this.prisma.$transaction([
         this.prisma.collectionItem.deleteMany({ where: { collection: key } }),
         ...items.map((data, position) => this.prisma.collectionItem.create({ data: { collection: key, position, data } })),

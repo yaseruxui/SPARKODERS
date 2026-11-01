@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { ButtonLink } from '@/components/ui/button';
 import { ArrowIcon } from '@/components/ui/icons';
-import { projects } from '../data/content';
+import { getProjectRows } from '@/features/work/lib/projects';
 import { WorkCards } from './work-cards';
 import { Kashida } from '@/components/ui/kashida';
 import { localePath, routes } from '@/lib/i18n/paths';
@@ -10,13 +10,8 @@ import { resolveLocale } from '@/lib/i18n/resolve-locale';
 export async function WorkSection() {
   const [t, rawLocale] = await Promise.all([getTranslations('home.work'), getLocale()]);
   const locale = resolveLocale(rawLocale);
-  const rows = projects.map((project) => ({
-    ...project,
-    href: localePath(locale, routes.project(project.key)),
-    title: t(`items.${project.key}.title`),
-    category: t(`items.${project.key}.category`),
-    alt: t(`items.${project.key}.alt`),
-  }));
+  // The home page shows the first six; the rest are on the work page.
+  const rows = (await getProjectRows(locale)).slice(0, 6);
 
   return (
     <section id="work" className="relative border-t border-line bg-ink-2 py-[clamp(80px,12vw,160px)]">

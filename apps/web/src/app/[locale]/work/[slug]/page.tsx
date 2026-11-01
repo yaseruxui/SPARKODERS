@@ -7,33 +7,34 @@ import { ArrowIcon } from '@/components/ui/icons';
 import { Pill } from '@/components/ui/pill';
 import { Reveal } from '@/components/ui/reveal';
 import { ProjectArt } from '@/features/home/components/project-art';
-import { projects } from '@/features/home/data/content';
-import { getProjectRows, isProjectKey, type ProjectResult } from '@/features/work/lib/projects';
+import { getProjectRows } from '@/features/work/lib/projects';
+import { getProjects } from '@/lib/content';
 import { localePath, routes } from '@/lib/i18n/paths';
 import { resolveLocale } from '@/lib/i18n/resolve-locale';
 import { routing } from '@/lib/i18n/routing';
 import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const dynamicParams = false;
+/** Projects added in the dashboard after a build render on first visit. */
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return routing.locales.flatMap((locale) => projects.map((project) => ({ locale, slug: project.key })));
+export async function generateStaticParams() {
+  const slugs = (await getProjects('ar')).map((p) => p.slug);
+  return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
 export async function generateMetadata({ params }: PageProps<'/[locale]/work/[slug]'>): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
   const locale = resolveLocale(rawLocale);
-  if (!isProjectKey(slug)) return {};
-  const [tWork, tProject, tMeta] = await Promise.all([
-    getTranslations({ locale, namespace: 'home.work' }),
-    getTranslations({ locale, namespace: 'projects' }),
+  const [project, tMeta] = await Promise.all([
+    getProjects(locale).then((all) => all.find((p) => p.slug === slug)),
     getTranslations({ locale, namespace: 'metadata' }),
   ]);
+  if (!project) return {};
   return buildPageMetadata({
     locale,
     pathname: routes.project(slug),
-    title: tWork(`items.${slug}.title`),
-    description: tProject(`${slug}.summary`),
+    title: project.title,
+    description: project.summary,
     siteName: tMeta('siteName'),
   });
 }
@@ -41,34 +42,27 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/work/[sl
 export default async function ProjectPage({ params }: PageProps<'/[locale]/work/[slug]'>) {
   const { locale: rawLocale, slug } = await params;
   const locale = resolveLocale(rawLocale);
-  if (!isProjectKey(slug)) notFound();
   setRequestLocale(locale);
 
-  const [t, tProject, rows] = await Promise.all([
-    getTranslations('pages.work'),
-    getTranslations('projects'),
-    getProjectRows(locale),
-  ]);
-  const index = rows.findIndex((row) => row.key === slug);
-  const project = rows[index];
+  const [t, all, rows] = await Promise.all([getTranslations('pages.work'), getProjects(locale), getProjectRows(locale)]);
+  const index = all.findIndex((p) => p.slug === slug);
+  const project = all[index];
   const next = rows[(index + 1) % rows.length];
   if (!project || !next) notFound();
 
-  const services = tProject.raw(`${slug}.services`) as string[];
-  const features = tProject.raw(`${slug}.features`) as string[];
-  const results = tProject.raw(`${slug}.results`) as ProjectResult[];
+  const { services, features, results } = project;
   const facts = [
-    { label: t('client'), value: tProject(`${slug}.client`) },
+    { label: t('client'), value: project.client },
     { label: t('sector'), value: project.category },
-    { label: t('year'), value: tProject(`${slug}.year`) },
-    { label: t('duration'), value: tProject(`${slug}.duration`) },
+    { label: t('year'), value: project.year },
+    { label: t('duration'), value: project.duration },
   ];
 
   return (
     <>
       <PageHero
         title={project.title}
-        lead={tProject(`${slug}.summary`)}
+        lead={project.summary}
         back={{ href: localePath(locale, routes.work), label: t('back') }}
       >
         <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-6 sm:grid-cols-4">
@@ -108,11 +102,11 @@ export default async function ProjectPage({ params }: PageProps<'/[locale]/work/
           <div className="grid gap-10">
             <div>
               <h2 className="font-display text-[clamp(1.6rem,2.6vw,2.2rem)] font-extrabold">{t('challenge')}</h2>
-              <p className="mt-3 text-lg leading-relaxed text-muted">{tProject(`${slug}.challenge`)}</p>
+              <p className="mt-3 text-lg leading-relaxed text-muted">{project.challenge}</p>
             </div>
             <div>
               <h2 className="font-display text-[clamp(1.6rem,2.6vw,2.2rem)] font-extrabold">{t('solution')}</h2>
-              <p className="mt-3 text-lg leading-relaxed text-muted">{tProject(`${slug}.solution`)}</p>
+              <p className="mt-3 text-lg leading-relaxed text-muted">{project.solution}</p>
             </div>
             <div>
               <h2 className="font-display text-[clamp(1.6rem,2.6vw,2.2rem)] font-extrabold">{t('features')}</h2>

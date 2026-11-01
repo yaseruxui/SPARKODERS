@@ -24,7 +24,7 @@ export async function BlogSection() {
           </ButtonLink>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((post, index) => (
+          {cards.slice(0, 3).map((post, index) => (
             <PostCard key={post.key} post={post} index={index} />
           ))}
         </div>

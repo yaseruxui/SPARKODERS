@@ -38,7 +38,7 @@ export interface TeamMember {
 
 /** Serializable copy handed from server components to client islands. */
 export interface ProjectRow {
-  key: ProjectKey;
+  key: string;
   accent: Accent;
   href: string;
   image: string | null;

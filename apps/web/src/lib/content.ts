@@ -1,14 +1,18 @@
 import 'server-only';
 import type {
+  ArticleBlock,
   ContentDefaults,
   Localized,
+  PostData,
+  ProjectData,
   ServiceData,
   SiteSettings,
   TeamMemberData,
   TestimonialData,
 } from '@sparkoders/contracts';
-import { services, team, testimonials } from '@/features/home/data/content';
+import { posts, projects, services, team, testimonials } from '@/features/home/data/content';
 import type { AvatarVariant } from '@/features/home/components/arab-avatar';
+import type { Accent } from '@/features/home/types';
 import { getCms, flatten } from '@/lib/cms';
 import { site } from '@/lib/config/site';
 import type { Locale } from '@/lib/i18n/routing';
@@ -42,8 +46,42 @@ export async function bundledContent(): Promise<ContentDefaults> {
     image: item.image,
   }));
 
+  const both2 = <T,>(pick: (m: typeof ar) => T) => ({ ar: pick(ar), en: pick(en) });
+  const projectItems: ProjectData[] = projects.map((p) => {
+    const results = both2((m) => m.projects[p.key].results);
+    return {
+      slug: p.key,
+      accent: p.accent,
+      image: p.image,
+      title: both((m) => m.home.work.items[p.key].title),
+      category: both((m) => m.home.work.items[p.key].category),
+      alt: both((m) => m.home.work.items[p.key].alt),
+      summary: both((m) => m.projects[p.key].summary),
+      client: both((m) => m.projects[p.key].client),
+      year: ar.projects[p.key].year,
+      duration: both((m) => m.projects[p.key].duration),
+      services: { ar: [...ar.projects[p.key].services], en: [...en.projects[p.key].services] },
+      challenge: both((m) => m.projects[p.key].challenge),
+      solution: both((m) => m.projects[p.key].solution),
+      features: { ar: [...ar.projects[p.key].features], en: [...en.projects[p.key].features] },
+      results: results.ar.map((r, i) => ({ value: r.value, label: { ar: r.label, en: results.en[i]?.label ?? '' } })),
+    };
+  });
+  const postItems: PostData[] = posts.map((p) => ({
+    slug: p.key,
+    accent: p.accent,
+    image: p.image,
+    date: p.date,
+    title: both((m) => m.home.blog.items[p.key].title),
+    alt: both((m) => m.home.blog.items[p.key].alt),
+    category: both((m) => m.home.blog.category),
+    excerpt: both((m) => m.articles[p.key].excerpt),
+    readTime: both((m) => m.articles[p.key].readTime),
+    body: { ar: ar.articles[p.key].body as ArticleBlock[], en: en.articles[p.key].body as ArticleBlock[] },
+  }));
+
   // Texts handled as collections above are left out of the page-text editor.
-  const collectionKeys = /^(home\.services\.items|home\.team\.members|home\.testimonials\.items|pages\.services\.items)\./;
+  const collectionKeys = /^(home\.services\.items|home\.team\.members|home\.testimonials\.items|pages\.services\.items|home\.work\.items|home\.blog\.items|projects|articles)\./;
   const texts = (messages: unknown) =>
     Object.fromEntries(Object.entries(flatten(messages)).filter(([key]) => !collectionKeys.test(key)));
 
@@ -57,6 +95,8 @@ export async function bundledContent(): Promise<ContentDefaults> {
     services: serviceItems,
     team: teamItems,
     testimonials: testimonialItems,
+    projects: projectItems,
+    posts: postItems,
     texts: { ar: texts(ar), en: texts(en) },
   };
 }
@@ -146,5 +186,77 @@ export async function getTestimonials(locale: Locale): Promise<TestimonialView[]
     role: pick(t.role, locale),
     image: t.image,
     avatar: AVATARS[index % AVATARS.length] ?? 'shemagh',
+  }));
+}
+
+export interface ProjectView {
+  slug: string;
+  accent: Accent;
+  image: string | null;
+  title: string;
+  category: string;
+  alt: string;
+  summary: string;
+  client: string;
+  year: string;
+  duration: string;
+  services: string[];
+  challenge: string;
+  solution: string;
+  features: string[];
+  results: { value: string; label: string }[];
+}
+
+const list = (value: { ar: string[]; en: string[] }, locale: Locale) => (value[locale].length ? value[locale] : value.ar);
+
+export async function getProjects(locale: Locale): Promise<ProjectView[]> {
+  const cms = (await getCms())?.projects;
+  const items = cms?.length ? cms : (await bundledContent()).projects;
+  return items.map((p) => ({
+    slug: p.slug,
+    accent: p.accent as Accent,
+    image: p.image,
+    title: pick(p.title, locale),
+    category: pick(p.category, locale),
+    alt: pick(p.alt, locale),
+    summary: pick(p.summary, locale),
+    client: pick(p.client, locale),
+    year: p.year,
+    duration: pick(p.duration, locale),
+    services: list(p.services, locale),
+    challenge: pick(p.challenge, locale),
+    solution: pick(p.solution, locale),
+    features: list(p.features, locale),
+    results: p.results.map((r) => ({ value: r.value, label: pick(r.label, locale) })),
+  }));
+}
+
+export interface PostView {
+  slug: string;
+  accent: Accent;
+  image: string | null;
+  date: string;
+  title: string;
+  alt: string;
+  category: string;
+  excerpt: string;
+  readTime: string;
+  body: ArticleBlock[];
+}
+
+export async function getPosts(locale: Locale): Promise<PostView[]> {
+  const cms = (await getCms())?.posts;
+  const items = cms?.length ? cms : (await bundledContent()).posts;
+  return items.map((p) => ({
+    slug: p.slug,
+    accent: p.accent as Accent,
+    image: p.image,
+    date: p.date,
+    title: pick(p.title, locale),
+    alt: pick(p.alt, locale),
+    category: pick(p.category, locale),
+    excerpt: pick(p.excerpt, locale),
+    readTime: pick(p.readTime, locale),
+    body: p.body[locale].length ? p.body[locale] : p.body.ar,
   }));
 }

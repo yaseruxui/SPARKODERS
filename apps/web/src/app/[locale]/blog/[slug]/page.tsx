@@ -3,37 +3,36 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { CtaBand } from '@/components/common/cta-band';
 import { PostCard } from '@/features/blog/components/post-card';
-import { getPostCards, isPostKey } from '@/features/blog/lib/posts';
+import { getPostCards } from '@/features/blog/lib/posts';
+import { getPosts } from '@/lib/content';
 import { ArrowIcon } from '@/components/ui/icons';
 import { ProjectArt } from '@/features/home/components/project-art';
-import { posts } from '@/features/home/data/content';
 import { localePath, routes } from '@/lib/i18n/paths';
 import { resolveLocale } from '@/lib/i18n/resolve-locale';
 import { routing } from '@/lib/i18n/routing';
 import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const dynamicParams = false;
+/** Articles added in the dashboard after a build render on first visit. */
+export const dynamicParams = true;
 
-type Block = { type: 'p' | 'h2'; text: string } | { type: 'ul'; items: string[] };
-
-export function generateStaticParams() {
-  return routing.locales.flatMap((locale) => posts.map((post) => ({ locale, slug: post.key })));
+export async function generateStaticParams() {
+  const slugs = (await getPosts('ar')).map((p) => p.slug);
+  return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
 export async function generateMetadata({ params }: PageProps<'/[locale]/blog/[slug]'>): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
   const locale = resolveLocale(rawLocale);
-  if (!isPostKey(slug)) return {};
-  const [tBlog, tArticles, tMeta] = await Promise.all([
-    getTranslations({ locale, namespace: 'home.blog' }),
-    getTranslations({ locale, namespace: 'articles' }),
+  const [post, tMeta] = await Promise.all([
+    getPosts(locale).then((all) => all.find((p) => p.slug === slug)),
     getTranslations({ locale, namespace: 'metadata' }),
   ]);
+  if (!post) return {};
   return buildPageMetadata({
     locale,
     pathname: routes.post(slug),
-    title: tBlog(`items.${slug}.title`),
-    description: tArticles(`${slug}.excerpt`),
+    title: post.title,
+    description: post.excerpt,
     siteName: tMeta('siteName'),
   });
 }
@@ -41,19 +40,19 @@ export async function generateMetadata({ params }: PageProps<'/[locale]/blog/[sl
 export default async function PostPage({ params }: PageProps<'/[locale]/blog/[slug]'>) {
   const { locale: rawLocale, slug } = await params;
   const locale = resolveLocale(rawLocale);
-  if (!isPostKey(slug)) notFound();
   setRequestLocale(locale);
 
-  const [t, tWork, tArticles, cards] = await Promise.all([
+  const [t, tWork, all, cards] = await Promise.all([
     getTranslations('pages.blog'),
     getTranslations('pages.work'),
-    getTranslations('articles'),
+    getPosts(locale),
     getPostCards(locale, { withExcerpt: true }),
   ]);
   const post = cards.find((card) => card.key === slug);
-  if (!post) notFound();
-  const body = tArticles.raw(`${slug}.body`) as Block[];
-  const related = cards.filter((card) => card.key !== slug);
+  const full = all.find((p) => p.slug === slug);
+  if (!post || !full) notFound();
+  const body = full.body;
+  const related = cards.filter((card) => card.key !== slug).slice(0, 4);
 
   return (
     <>
@@ -68,7 +67,7 @@ export default async function PostPage({ params }: PageProps<'/[locale]/blog/[sl
           </a>
           <p className="text-sm text-faint">
             {post.category} · <time dateTime={post.date}>{post.dateLabel}</time> ·{' '}
-            {t('readTime', { time: tArticles(`${slug}.readTime`) })}
+            {t('readTime', { time: full.readTime })}
           </p>
           <h1 className="mt-3 font-display text-[clamp(2rem,4.6vw,3.5rem)] leading-[1.3] font-extrabold">
             {post.title}
