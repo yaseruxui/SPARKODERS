@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/brand-fonts.mjs decrypt",
+    "prebuild": "npm run build --prefix ../../packages/contracts && node scripts/brand-fonts.mjs decrypt",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
