@@ -77,6 +77,14 @@ shows its bundled content.
 
 Next: deploy (API + database + object storage for uploads), real content, and SEO extras.
 
+## Deployment
+
+- **Site**: Vercel project `skodr`, linked to this repository with root directory `apps/web`
+  (files outside it are included, so the shared contracts build too). Pushes deploy previews;
+  production follows the production branch. Environment variables live in the Vercel project.
+- **API and dashboard**: not deployed yet. The API needs a database (see below) and object storage
+  for uploads; the dashboard is a static Vite build pointing at the API (`VITE_API_URL`).
+
 ## Database
 
 Development uses SQLite (`apps/api/prisma/dev.db`, not committed). To use Postgres: set
