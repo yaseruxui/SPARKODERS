@@ -1,6 +1,7 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import type { InviteUserInput, UpdateUserInput, UserListItem } from '@sparkoders/contracts';
 import { env } from '../config/env';
+import { emailHtml, MailService } from '../mail/mail.service';
 import { parsePermissions } from '../common/permissions';
 import { newToken } from '../common/tokens';
 import { Prisma, type User } from '../generated/prisma/client';
@@ -29,7 +30,20 @@ function permissionsValue(permissions: string[] | null) {
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mail: MailService,
+  ) {}
+
+  /** Emails the invitation link when mail is set up; the dashboard shows the link either way. */
+  private sendInvitation(user: { name: string; email: string }, url: string): Promise<boolean> {
+    return this.mail.send({
+      to: user.email,
+      subject: 'دعوة للانضمام إلى لوحة تحكم SPARKODERS',
+      text: `أهلًا ${user.name}، تمت دعوتك إلى لوحة تحكم سبارك كودرز. اختر كلمة مرورك من هذا الرابط (صالح 7 أيام): ${url}`,
+      html: emailHtml(`أهلًا ${user.name}`, ['تمت دعوتك إلى لوحة تحكم سبارك كودرز.', 'الرابط صالح لمدة 7 أيام.'], { label: 'اختر كلمة المرور', url }),
+    });
+  }
 
   async list(): Promise<UserListItem[]> {
     const users = await this.prisma.user.findMany({ orderBy: { createdAt: 'asc' } });
@@ -37,10 +51,10 @@ export class UsersService {
   }
 
   /**
-   * Creates the account and returns the invitation link. There is no mail server yet, so the
-   * dashboard shows the link for the admin to send; wire a mailer here later.
+   * Creates the account and returns the invitation link; it is also emailed when mail settings
+   * are configured (Settings → Mail).
    */
-  async invite(input: InviteUserInput): Promise<{ user: UserListItem; invitationUrl: string }> {
+  async invite(input: InviteUserInput): Promise<{ user: UserListItem; invitationUrl: string; emailed: boolean }> {
     const email = input.email.toLowerCase();
     if (await this.prisma.user.findUnique({ where: { email } })) {
       throw new ConflictException({ message: 'هذا البريد مستخدم بالفعل.', fields: ['email'] });
@@ -55,11 +69,12 @@ export class UsersService {
         invitationExpiresAt: new Date(Date.now() + INVITATION_DAYS * 86_400_000),
       },
     });
-    return { user: toListItem(user), invitationUrl: this.invitationUrl(token) };
+    const invitationUrl = this.invitationUrl(token);
+    return { user: toListItem(user), invitationUrl, emailed: await this.sendInvitation(user, invitationUrl) };
   }
 
   /** A fresh link for someone who has not accepted yet (the old one stops working). */
-  async reinvite(id: string): Promise<{ invitationUrl: string }> {
+  async reinvite(id: string): Promise<{ invitationUrl: string; emailed: boolean }> {
     const user = await this.find(id);
     if (user.passwordHash) throw new BadRequestException('هذا المستخدم فعّل حسابه بالفعل.');
     const { token, hash } = newToken();
@@ -67,7 +82,8 @@ export class UsersService {
       where: { id },
       data: { invitationTokenHash: hash, invitationExpiresAt: new Date(Date.now() + INVITATION_DAYS * 86_400_000) },
     });
-    return { invitationUrl: this.invitationUrl(token) };
+    const invitationUrl = this.invitationUrl(token);
+    return { invitationUrl, emailed: await this.sendInvitation(user, invitationUrl) };
   }
 
   async update(actorId: string, id: string, input: UpdateUserInput): Promise<UserListItem> {

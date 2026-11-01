@@ -61,7 +61,7 @@ function CopyLink({ url }: { url: string }) {
   return (
     <div className="grid gap-2">
       <p className="text-muted-foreground text-sm">
-        أرسل هذا الرابط للعضو ليختار كلمة مروره. الرابط صالح لمدة 7 أيام.
+        إذا كان البريد مضبوطًا وصلته الدعوة بالبريد؛ وإلا أرسل له هذا الرابط ليختار كلمة مروره. الرابط صالح لمدة 7 أيام.
       </p>
       <div className="flex gap-2">
         <Input value={url} readOnly dir="ltr" className="text-xs" />
@@ -106,17 +106,21 @@ export function UsersPage() {
 
   const invite = useMutation({
     mutationFn: (body: { name: string; email: string; permissions: Permission[] | null }) =>
-      api<{ invitationUrl: string }>('/users', { method: 'POST', body }),
+      api<{ invitationUrl: string; emailed: boolean }>('/users', { method: 'POST', body }),
     onSuccess: (data) => {
       setInviteOpen(false);
       setLink(data.invitationUrl);
+      if (data.emailed) toast.success('أُرسلت الدعوة بالبريد');
       void refresh();
     },
     onError: (e) => setInviteError(e instanceof Error ? e.message : ''),
   });
   const reinvite = useMutation({
-    mutationFn: (id: string) => api<{ invitationUrl: string }>(`/users/${id}/invitation`, { method: 'POST' }),
-    onSuccess: (data) => setLink(data.invitationUrl),
+    mutationFn: (id: string) => api<{ invitationUrl: string; emailed: boolean }>(`/users/${id}/invitation`, { method: 'POST' }),
+    onSuccess: (data) => {
+      setLink(data.invitationUrl);
+      if (data.emailed) toast.success('أُرسلت الدعوة بالبريد');
+    },
     onError: (e) => toast.error(e instanceof Error ? e.message : ''),
   });
   const save = useMutation({

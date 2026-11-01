@@ -17,6 +17,7 @@ import { SettingsPage } from '@/pages/settings';
 import { UsersPage } from '@/pages/users';
 import { ContactSettingsPage } from '@/pages/contact-settings';
 import { MediaPage } from '@/pages/media';
+import { MailSettingsPage } from '@/pages/mail-settings';
 import { TextsPage } from '@/pages/texts';
 import { CollectionPage } from '@/features/content/collection-page';
 import { postsConfig, projectsConfig, servicesConfig, teamConfig, testimonialsConfig } from '@/features/content/collections';
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       { path: 'texts', element: <Gate permission="content"><TextsPage /></Gate> },
       { path: 'contact', element: <Gate permission="content"><ContactSettingsPage /></Gate> },
       { path: 'media', element: <Gate permission="media"><MediaPage /></Gate> },
+      { path: 'mail', element: <Gate permission="users"><MailSettingsPage /></Gate> },
       { path: 'settings', element: <SettingsPage /> },
       { path: '*', element: <Navigate to="/" replace /> },
     ],

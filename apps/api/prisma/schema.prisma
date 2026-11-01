@@ -102,3 +102,18 @@ model Media {
   alt       String   @default("")
   createdAt DateTime @default(now())
 }
+
+/// An in-dashboard notification for one user (e.g. a new enquiry).
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  kind      String
+  title     String
+  body      String    @default("")
+  /// Dashboard path to open (e.g. /inbox?open=…).
+  link      String    @default("/")
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, createdAt])
+}

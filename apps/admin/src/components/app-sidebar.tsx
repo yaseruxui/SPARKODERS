@@ -7,6 +7,7 @@ import {
   Inbox,
   LayoutDashboard,
   LogOut,
+  Mail,
   MessageSquareQuote,
   Phone,
   Settings,
@@ -16,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AppLogo } from '@/components/app-logo';
+import { NotificationBell } from '@/components/notification-bell';
 import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
@@ -48,6 +50,7 @@ const navGroups: NavGroup[] = [
       { title: 'نظرة عامة', url: '/', icon: LayoutDashboard },
       { title: 'طلبات التواصل', url: '/inbox', icon: Inbox, permission: 'inbox' },
       { title: 'المستخدمون', url: '/users', icon: Users, permission: 'users' },
+      { title: 'البريد والتنبيهات', url: '/mail', icon: Mail, permission: 'users' },
     ],
   },
   {
@@ -135,7 +138,8 @@ export function AppSidebar({ user, unread }: { user: SessionUser; unread: number
 
       <SidebarSeparator className="bg-foreground/15 mx-4 my-1 w-auto group-data-[collapsible=icon]:mx-3" />
       <SidebarFooter>
-        <SidebarMenu>
+        <div className="flex items-center gap-1 group-data-[collapsible=icon]:flex-col-reverse">
+        <SidebarMenu className="min-w-0 flex-1">
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -167,6 +171,8 @@ export function AppSidebar({ user, unread }: { user: SessionUser; unread: number
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
+        <NotificationBell className="text-sidebar-foreground hover:bg-sidebar-accent size-8 shrink-0" />
+        </div>
       </SidebarFooter>
     </Sidebar>
   );

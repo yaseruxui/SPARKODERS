@@ -71,7 +71,11 @@ shows its bundled content.
    the site's `/api/revalidate`. «استيراد من الموقع» copies the bundled content in once.
 3. ✅ Projects (case studies with results) and blog articles (block editor for the body, Arabic
    and English) in the dashboard. New slugs render on first visit, no rebuild needed.
-4. Media library, notifications (email on new enquiry), mail settings.
+4. ✅ Notifications: a bell in the dashboard and an email for every new enquiry; mail (SMTP)
+   settings with a test send; invitations are emailed when mail is set up. The SMTP password is
+   stored encrypted.
+
+Next: deploy (API + database + object storage for uploads), real content, and SEO extras.
 
 ## Database
 

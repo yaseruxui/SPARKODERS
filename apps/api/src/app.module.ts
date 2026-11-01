@@ -6,7 +6,9 @@ import { ContentModule } from './content/content.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HealthController } from './health/health.controller';
 import { InboxModule } from './inbox/inbox.module';
+import { MailModule } from './mail/mail.module';
 import { MediaModule } from './media/media.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PublicModule } from './public/public.module';
 import { UsersModule } from './users/users.module';
@@ -21,6 +23,8 @@ import { UsersModule } from './users/users.module';
     InboxModule,
     ContentModule,
     MediaModule,
+    MailModule,
+    NotificationsModule,
     PublicModule,
     DashboardModule,
   ],
